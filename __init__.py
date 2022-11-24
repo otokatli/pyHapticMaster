@@ -121,6 +121,11 @@ def clear_all_effects(s):
     msg = 'remove all'
     send_message(s, msg)
 
+def move_spring(name, position):
+    # Second step, set the damping coefficient
+    msg = 'set ' + name + ' pos ' + str(position).replace(' ', '')
+    send_message(s, msg)
+
 if __name__ == '__main__':
     ip = '192.168.0.25'
     port = 7654
