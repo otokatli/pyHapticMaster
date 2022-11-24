@@ -121,7 +121,7 @@ def clear_all_effects(s):
     msg = 'remove all'
     send_message(s, msg)
 
-def move_spring(name, position):
+def move_spring(s, name, position):
     # Second step, set the damping coefficient
     msg = 'set ' + name + ' pos ' + str(position).replace(' ', '')
     send_message(s, msg)
