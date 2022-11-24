@@ -40,7 +40,7 @@ def set_state(s, device_state):
     -------
     True if setting the state is successful, False o.w.
     """
-    if device_state in ['init', 'off', 'force', 'position']:
+    if device_state in ['init', 'off', 'force', 'position', 'home']:
         msg = 'set state ' + device_state
         send_message(s, msg)
 
@@ -56,7 +56,7 @@ def create_spring(s, name: str, position: list, constant: float, direction: list
     send_message(s, msg)
 
     # Second step, set the damping coefficient
-    msg = 'set ' + name + ' pos ' + str(position).replace(' ', '')
+    msg = 'set ' + name + ' pos ' + str(list(position)).replace(' ', '')
     send_message(s, msg)
 
     # Third step, set spring constant
@@ -64,7 +64,7 @@ def create_spring(s, name: str, position: list, constant: float, direction: list
     send_message(s, msg)
 
     # Fourth step, set spring direction
-    msg = 'set ' + name + ' direction ' + str(direction).replace(' ', '')
+    msg = 'set ' + name + ' direction ' + str(list(direction)).replace(' ', '')
     send_message(s, msg)
 
     # Fifth step, set spring dampfactor
@@ -85,7 +85,7 @@ def create_damper(s, name: str, coefficient: list) -> None:
     send_message(s, msg)
 
     # Second step, set the damping coefficient
-    msg = 'set ' + name + ' dampcoef ' + str(coefficient).replace(' ', '')
+    msg = 'set ' + name + ' dampcoef ' + str(list(coefficient)).replace(' ', '')
     send_message(s, msg)
 
     # Third step, enable the damper
@@ -123,7 +123,7 @@ def clear_all_effects(s):
 
 def move_spring(s, name, position):
     # Second step, set the damping coefficient
-    msg = 'set ' + name + ' pos ' + str(position).replace(' ', '')
+    msg = 'set ' + name + ' pos ' + str(list(position)).replace(' ', '')
     send_message(s, msg)
 
 if __name__ == '__main__':
