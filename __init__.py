@@ -1,6 +1,5 @@
 
 import socket
-import time
 
 
 def _hapticMaster_message(msg):
@@ -14,19 +13,23 @@ def _hapticMaster_message(msg):
     return hm_msg + decimal_msg
 
 def _hapticMaster_response(msg):
-    return str(msg).split('"')[1:2][0]
+    # Message as a string
+    msg_str = str(msg)
 
-def send_message(s, msg):
+    # Check if there is error in the message
+    error_ind = msg_str.find('ERROR')
+    
+    if error_ind > 0:
+        # The message returns an error
+        raise ValueError(msg_str[error_ind:-1])
+    else:
+        # The message does not contain error
+        return str(msg).split('"')[1:2][0].replace('\\', '')
+        
+
+def send_message(s, msg: str):
     s.sendall(bytearray(_hapticMaster_message(msg)))
 
-def send_recv_message(s, msg):
-    s.sendall(bytearray(_hapticMaster_message(msg)))
-
-    time.sleep(0.5)
-
-    return _hapticMaster_response(s.recv(1024))
-
-def recv_message(s):
     return _hapticMaster_response(s.recv(1024))
 
 def set_state(s, device_state):
@@ -42,89 +45,64 @@ def set_state(s, device_state):
     """
     if device_state in ['init', 'off', 'force', 'position', 'home']:
         msg = 'set state ' + device_state
-        send_message(s, msg)
-
-        return True
+        return send_message(s, msg)
     else:
-        print('Wrong state name')
-
-        return False
+        raise ValueError('Wrong state name is given')
 
 def create_spring(s, name: str, position: list, constant: float, direction: list, damp_factor: float, max_force: float):
     # First step, create the damper
     msg = 'create spring ' + name
-    send_message(s, msg)
+    print(send_message(s, msg))
 
     # Second step, set the damping coefficient
     msg = 'set ' + name + ' pos ' + str(list(position)).replace(' ', '')
-    send_message(s, msg)
+    print(send_message(s, msg))
 
     # Third step, set spring constant
     msg = 'set ' + name + ' stiffness ' + str(constant)
-    send_message(s, msg)
+    print(send_message(s, msg))
 
     # Fourth step, set spring direction
     msg = 'set ' + name + ' direction ' + str(list(direction)).replace(' ', '')
-    send_message(s, msg)
+    print(send_message(s, msg))
 
     # Fifth step, set spring dampfactor
     msg = 'set ' + name + ' dampfactor ' + str(damp_factor)
-    send_message(s, msg)
+    print(send_message(s, msg))
 
     # Sixth step, set max spring force
     msg = 'set ' + name + ' maxforce ' + str(max_force)
-    send_message(s, msg)
+    print(send_message(s, msg))
 
     # Seventh step, enable the spring
     msg = 'set ' + name + ' enable'
-    send_message(s, msg)
+    print(send_message(s, msg))
 
-def create_damper(s, name: str, coefficient: list) -> None:
+def create_damper(s, name: str, coefficient: list):
     # First step, create the damper
     msg = 'create damper ' + name
-    send_message(s, msg)
+    print(send_message(s, msg))
 
     # Second step, set the damping coefficient
     msg = 'set ' + name + ' dampcoef ' + str(list(coefficient)).replace(' ', '')
-    send_message(s, msg)
+    print(send_message(s, msg))
 
     # Third step, enable the damper
     msg = 'set ' + name + ' enable'
-    send_message(s, msg)
+    print(send_message(s, msg))
 
 def set_inertia(s, value):
     msg = 'set inertia ' + str(value)
-    send_message(s, msg)
-
-def calibrate_robot(s):
-    # Check if the robot is calibrated
-    msg = 'get position_calibrated'
-    response = send_recv_message(s, msg)
-    print(response)
-    if response == 'false':
-        print('Initialise the robot')
-        set_state(s, 'init')
-        
-        time.sleep(1.0)
-
-        print('Waiting for calibration to complete')
-        print(response)
-        while response == 'false':
-            time.sleep(1.0)
-
-            response = send_recv_message(s, 'get position_calibrated')
-            print(response)
-    else:
-        print('Robot is already calibrated')
+    print(send_message(s, msg))
 
 def clear_all_effects(s):
     msg = 'remove all'
-    send_message(s, msg)
+    print(send_message(s, msg))
 
 def move_spring(s, name, position):
     # Second step, set the damping coefficient
     msg = 'set ' + name + ' pos ' + str(list(position)).replace(' ', '')
-    send_message(s, msg)
+    print(send_message(s, msg))
 
 if __name__ == '__main__':
     ip = '192.168.0.25'
@@ -133,12 +111,6 @@ if __name__ == '__main__':
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((ip, port))
         
-        # Calibrate the robot
-        calibrate_robot(s)
-        
-        # Wait for calibration to finish
-        time.sleep(30.0)
-
         # Set end-effector inertia
         set_inertia(s, 3)
         
