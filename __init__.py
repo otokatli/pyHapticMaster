@@ -12,6 +12,7 @@ def _hapticMaster_message(msg):
     
     return hm_msg + decimal_msg
 
+
 def _hapticMaster_response(msg):
     # Message as a string
     msg_str = str(msg)
@@ -32,6 +33,7 @@ def send_message(s, msg: str):
 
     return _hapticMaster_response(s.recv(1024))
 
+
 def set_state(s, device_state):
     """ Set the state of the HapticMaster 
     Args
@@ -48,6 +50,7 @@ def set_state(s, device_state):
         return send_message(s, msg)
     else:
         raise ValueError('Wrong state name is given')
+
 
 def create_spring(s, name: str, position: list, constant: float, direction: list, damp_factor: float, max_force: float):
     # First step, create the damper
@@ -78,6 +81,7 @@ def create_spring(s, name: str, position: list, constant: float, direction: list
     msg = 'set ' + name + ' enable'
     print(send_message(s, msg))
 
+
 def create_damper(s, name: str, coefficient: list):
     # First step, create the damper
     msg = 'create damper ' + name
@@ -91,9 +95,11 @@ def create_damper(s, name: str, coefficient: list):
     msg = 'set ' + name + ' enable'
     print(send_message(s, msg))
 
+
 def set_inertia(s, value):
     msg = 'set inertia ' + str(value)
     print(send_message(s, msg))
+
 
 def create_bias_force(s, name, value=[0.0, 0.0, 0.0]):
     # Create the bias force on HapticMaster controller
@@ -108,14 +114,17 @@ def create_bias_force(s, name, value=[0.0, 0.0, 0.0]):
     msg = 'set ' + name + ' enable'
     print(send_message(s, msg))
 
+
 def clear_all_effects(s):
     msg = 'remove all'
     print(send_message(s, msg))
+
 
 def move_spring(s, name, position):
     # Second step, set the damping coefficient
     msg = 'set ' + name + ' pos ' + str(list(position)).replace(' ', '')
     print(send_message(s, msg))
+
 
 if __name__ == '__main__':
     ip = '192.168.0.25'
