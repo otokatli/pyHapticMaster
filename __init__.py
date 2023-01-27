@@ -95,6 +95,19 @@ def set_inertia(s, value):
     msg = 'set inertia ' + str(value)
     print(send_message(s, msg))
 
+def create_bias_force(s, name, value=[0.0, 0.0, 0.0]):
+    # Create the bias force on HapticMaster controller
+    msg = 'create biasforce ' + name
+    print(send_message(s, msg))
+
+    # Set the value of the bias force
+    msg = 'set ' + name + ' force ' + str(list(value)).replace(' ', '')
+    print(send_message(s, msg))
+
+    # Enable the bias force
+    msg = 'set ' + name + ' enable'
+    print(send_message(s, msg))
+
 def clear_all_effects(s):
     msg = 'remove all'
     print(send_message(s, msg))
