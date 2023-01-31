@@ -131,19 +131,33 @@ class HapticMaster:
         return hm_msg + decimal_msg
 
     def _hapticMaster_response(self, msg):
-        # Message as a string
-        msg_str = str(msg)
+        # Decode the response from the server
+        msg_str = msg.decode('utf-8')
 
-        # Check if there is error in the message
-        error_ind = msg_str.find('ERROR')
-        
-        if error_ind > 0:
-            # The message returns an error
-            raise ValueError(msg_str[error_ind:-1])
+        # Check if the response conveys error message
+        if 'ERROR' in msg_str:
+            raise ValueError(msg_str)
         else:
-            # The message does not contain error
-            return str(msg).split('"')[1:2][0].replace('\\', '')
+            # Check if the response is a vector
+            if '$' in msg_str:
+                return [float(s) for s in msg_str[msg_str.find('[')+1:msg_str.find(']')].split(',')]
+            else:
+                return "INFO: " + msg_str.replace('"', '')
 
+    def getPosition(self) -> list:
+        msg = 'get measpos'
+        
+        return self.send_message(msg)
+
+    def getVelocity(self) -> list:
+        msg = 'get modelvel'
+
+        return self.send_message(msg)
+
+    def getForce(self) -> list:
+        msg = 'get measforce'
+
+        return self.send_message(msg)
 
 if __name__ == '__main__':
     import time
