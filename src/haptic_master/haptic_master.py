@@ -139,7 +139,7 @@ class HapticMaster:
             raise ValueError(msg_str)
         else:
             # Check if the response is a vector
-            if '$' in msg_str:
+            if '[' in msg_str and ']' in msg_str:
                 return [float(s) for s in msg_str[msg_str.find('[')+1:msg_str.find(']')].split(',')]
             else:
                 return "INFO: " + msg_str.replace('"', '')
