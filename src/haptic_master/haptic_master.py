@@ -158,3 +158,8 @@ class HapticMaster:
         msg = 'get measforce'
 
         return self.send_message(msg)
+
+    def set_bias_force(self, F: BiasForce):
+        msg = 'set ' + F.name + ' force [' + str(F.force[0]) + ',' + str(F.force[1]) + ',' + str(F.force[2]) + ']'
+
+        return self.send_message(msg)
