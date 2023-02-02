@@ -144,17 +144,17 @@ class HapticMaster:
             else:
                 return "INFO: " + msg_str.replace('"', '')
 
-    def getPosition(self) -> list:
+    def get_position(self) -> list:
         msg = 'get measpos'
         
         return self.send_message(msg)
 
-    def getVelocity(self) -> list:
+    def get_velocity(self) -> list:
         msg = 'get modelvel'
 
         return self.send_message(msg)
 
-    def getForce(self) -> list:
+    def get_force(self) -> list:
         msg = 'get measforce'
 
         return self.send_message(msg)
