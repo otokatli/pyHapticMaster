@@ -1,8 +1,15 @@
 class Effect:
-    def __init__(self, position: list, velocity: list, attitude: list) -> None:
+    def __init__(self, name:str, position: list = [0.0, 0.0, 0.0],
+                 velocity: list = [0.0, 0.0, 0.0],
+                 attitude: list = [0.0, 0.0, 0.0, 1.0]) -> None:
+        self._name = name
         self._pos = position
         self._vel = velocity
         self._att = attitude
+    
+    @property
+    def name(self) -> str:
+        return self._name
     
     @property
     def pos(self) -> list:
@@ -30,10 +37,10 @@ class Effect:
 
     
 class Spring(Effect):
-    def __init__(self, position: list, velocity: list, attitude: list,
+    def __init__(self, name: str, position: list, velocity: list, attitude: list,
                  stiffness: float, dampfactor: float, deadband: float,
                  direction: list, maxforce: float, dampglobal: bool) -> None:
-        super().__init__(position, velocity, attitude)
+        super().__init__(name, position, velocity, attitude)
         self._stiffness = stiffness
         self._dampfactor = dampfactor
         self._deadband = deadband
@@ -91,9 +98,9 @@ class Spring(Effect):
 
 
 class Damper(Effect):
-    def __init__(self, position: list, velocity: list, attitude: list,
+    def __init__(self, name: str, position: list, velocity: list, attitude: list,
                  dampcoef: list) -> None:
-        super().__init__(position, velocity, attitude)
+        super().__init__(name, position, velocity, attitude)
         self._dampcoef = dampcoef
 
     @property
@@ -106,9 +113,9 @@ class Damper(Effect):
 
 
 class BiasForce(Effect):
-    def __init__(self, position: list, velocity: list, attitude: list,
+    def __init__(self, name: str, position: list, velocity: list, attitude: list,
                  force: list) -> None:
-        super().__init__(position, velocity, attitude)
+        super().__init__(name, position, velocity, attitude)
         self._force = force
 
     @property
