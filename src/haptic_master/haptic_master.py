@@ -163,3 +163,8 @@ class HapticMaster:
         msg = 'set ' + F.name + ' force [' + str(F.force[0]) + ',' + str(F.force[1]) + ',' + str(F.force[2]) + ']'
 
         return self.send_message(msg)
+    
+    def remove(self, name: str):
+        msg = 'remove ' + name
+
+        return self.send_message(msg)
