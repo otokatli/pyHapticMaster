@@ -58,6 +58,25 @@ class HapticMaster:
         except Exception as e:
             raise e
 
+    def is_enabled(self, name: str) -> bool:
+        msg = 'get ' + name + ' enabled'
+        
+        return self.send_message(msg)
+    
+    def enable(self, name: str) -> None:
+        msg = 'set ' + name + ' enable'
+
+        print(self.send_message(msg))
+
+        return True
+
+    def disable(self, name: str) -> None:
+        msg = 'set ' + name + ' disable'
+
+        print(self.send_message(msg))
+
+        return True
+
     def create_spring(self, spring: Spring) -> None:
         try:
             # Create the spring with the given name
@@ -151,6 +170,10 @@ class HapticMaster:
             # Check if the response is a vector
             if '[' in msg_str and ']' in msg_str:
                 return [float(s) for s in msg_str[msg_str.find('[')+1:msg_str.find(']')].split(',')]
+            elif 'true' in msg_str:
+                return True
+            elif 'false' in msg_str:
+                return False
             else:
                 return "INFO: " + msg_str.replace('"', '')
 
