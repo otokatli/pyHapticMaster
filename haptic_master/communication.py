@@ -33,7 +33,6 @@ def haptic_master_response2(msg):
             
 def haptic_master_response(msg):
     msg_str = ''.join(c for c in msg.decode('ascii') if c in printable)
-    # msg_str = msg.decode('ascii')
     
     if re.search('[a-zA-Z]', msg_str):
         return msg_str.replace('"', '')
