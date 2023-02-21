@@ -1,8 +1,9 @@
 from dataclasses import dataclass, field
+from haptic_master.base import Base
 
 
 @dataclass
-class Effect:
+class Effect(Base):
     name: str
     pos: list = field(default_factory=lambda: [0.0, 0.0, 0.0])
     vel: list = field(default_factory=lambda: [0.0, 0.0, 0.0])

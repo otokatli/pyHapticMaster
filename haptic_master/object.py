@@ -1,12 +1,9 @@
 from dataclasses import dataclass, field
+from haptic_master.base import Base
 
 
 @dataclass
-class Object:
-    name: str
-    pos: list = field(default_factory=lambda: [0.0, 0.0, 0.0])
-    vel: list = field(default_factory=lambda: [0.0, 0.0, 0.0])
-    att: list = field(default_factory=lambda: [0.0, 0.0, 0.0, 1.0])
+class Object(Base):
     stiffness: float = 0.0
     dampfactor: float = 0.0
     no_pull: bool = False
@@ -17,15 +14,6 @@ class Object:
     ejection_damping: float = 0.0
     outward_forcemax: float = 0.0
     powermax: float = 0.0
-
-    def get_pos_msg(self) -> str:
-        return 'get ' + self.name + ' pos'
-    
-    def get_vel_msg(self) -> str:
-        return 'get ' + self.name + ' vel'
-    
-    def get_att_msg(self) -> str:
-        return 'get ' + self.name + ' att'
 
     def get_stiffness_msg(self) -> str:
         return 'get ' + self.name + ' stiffness'
@@ -57,14 +45,7 @@ class Object:
     def get_powermax_msg(self) -> str:
         return 'get ' + self.name + ' powermax'
     
-    def set_pos_msg(self, value: list) -> str:
-        return 'set ' + self.name + ' pos ' + str(value).replace(' ', '')
     
-    def set_vel_msg(self, value: list) -> str:
-        return 'set ' + self.name + ' vel ' + str(value).replace(' ', '')
-    
-    def set_att_msg(self, value: list) -> str:
-        'set ' + self.name + ' att ' + str(value).replace(' ', '')
 
     def set_stiffness_msg(self, value: float) -> str:
         return 'set ' + self.name + ' stiffness ' + str(value)
@@ -95,6 +76,8 @@ class Object:
 
     def set_powermax_msg(self, value: float) -> str:
         return 'set ' + self.name + ' powermax ' + str(value)
+    
+    
 
 
 class Block(Object):
