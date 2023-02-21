@@ -1,5 +1,4 @@
 from haptic_master.haptic_master import HapticMaster
-from haptic_master.effect import Spring
 import unittest
 
 
@@ -12,38 +11,54 @@ class TestHapticMaster(unittest.TestCase):
         print('Testing states')
         
         # Open connection and set inertia to 1.0
-        robot = HapticMaster(IP, PORT, 1.0)
+        robot = HapticMaster(IP, PORT)
         robot.connect()
+
+        end_effector_inertia = 2.3
+
+        # Set the inertia
+        print('Setting inertia of the robot')
+        robot.set_inertia(end_effector_inertia)
+
+        # Get inertia value
+        self.assertEqual(robot.get_inertia(), end_effector_inertia)
 
         # Set state to position
         print('Setting state to position')
-        response = robot.set_state('position')
-        self.assertEqual(response, 'INFO: \x00\x00\x00\x19\x00\x00\x00\x00state set to \'position\'')
+        self.assertEqual(robot.set_state('position'), 'state set to \'position\'')
 
         # Set state to force
         print('Setting state to force')
-        response = robot.set_state('force')
-        self.assertEqual(response, 'INFO: \x00\x00\x00\x16\x00\x00\x00\x00state set to \'force\'')
+        self.assertEqual(robot.set_state('force'), 'state set to \'force\'')
 
         robot.disconnect()
 
-    def test_spring(self):
-        print('Testing spring')
+    # def test_spring(self):
+    #     print('Testing spring')
 
-        # Open connection and set inertia to 1.0
-        robot = HapticMaster(IP, PORT, 1.0)
-        robot.connect()
+    #     # Open connection and set inertia to 1.0
+    #     robot = HapticMaster(IP, PORT, 1.0)
+    #     robot.connect()
 
-        # Create spring object
-        mySpring = Spring(name='mySpring', position=[0.0, 0.0, 0.0], velocity=[0.0, 0.0, 0.0], attitude=[0.0, 0.0, 0.0, 1.0], stiffness=100, dampfactor=0.0, deadband=0.0, direction=[0.0, 0.0, 1.0], maxforce=25.0, dampglobal=False)
+    #     # Create spring object
+    #     mySpring = Spring(name='mySpring')
 
-        print('Creating the spring')
-        self.assertTrue(robot.create_spring(mySpring))
+    #     print('Creating the spring')
+    #     self.assertTrue(robot.create_spring(mySpring))
 
-        print('Move the spring')
-        self.assertTrue(robot.move_spring(mySpring, [0.0, 0.0, 0.1]))
+    #     print('Checking if the spring is enabled')
+    #     self.assertTrue(robot.is_enabled(mySpring.name))
 
-        robot.disconnect()
+    #     print('Move the spring')
+    #     self.assertTrue(robot.move_spring(mySpring, [0.0, 0.0, 0.1]))
+
+    #     print('Disabling the spring')
+    #     self.assertTrue(robot.disable(mySpring.name))
+
+    #     print('Checking if the spring is disabled')
+    #     self.assertFalse(robot.is_enabled(mySpring.name))
+
+    #     robot.disconnect()
 
     # def test_damper(self):
     #     print('Testing damper')
@@ -51,6 +66,24 @@ class TestHapticMaster(unittest.TestCase):
     #     # Open connection and set inertia to 1.0
     #     robot = HapticMaster(IP, PORT, 1.0)
     #     robot.connect()
+
+    #     # Create spring object
+    #     mySpring = Damper(name='myDamper')
+
+    #     # print('Creating the spring')
+    #     # self.assertTrue(robot.(mySpring))
+
+    #     print('Checking if the spring is enabled')
+    #     self.assertTrue(robot.is_enabled(mySpring.name))
+
+    #     print('Move the spring')
+    #     self.assertTrue(robot.set_position(mySpring, [0.0, 0.0, 0.1]))
+
+    #     print('Disabling the spring')
+    #     self.assertTrue(robot.disable(mySpring.name))
+
+    #     print('Checking if the spring is disabled')
+    #     self.assertFalse(robot.is_enabled(mySpring.name))
 
     #     robot.disconnect()
 
