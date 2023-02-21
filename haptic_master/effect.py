@@ -17,7 +17,7 @@ class Spring(Effect):
     deadband: float = 0.0
     direction: List = field(default_factory=lambda: [0.0, 0.0, 1.0])
     maxforce: float = 0.0
-    dampglobal: bool = 0.0
+    dampglobal: bool = False
 
 
 @dataclass
