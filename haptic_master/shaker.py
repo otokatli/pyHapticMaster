@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 
-@dataclass(repr=True)
+
+@dataclass
 class Shaker:
     name: str
     frequency1: float = 0.0
