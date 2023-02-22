@@ -1,15 +1,15 @@
-from .communication import send_message
-import socket
+from .haptic_master import HapticMaster
+from dataclasses import dataclass
 
-
+@dataclass(frozen=True)
 class Base:
-    def __init__(self) -> None:
-        pass
-    
-    def get_pos(self, s: socket) -> list:
+    name: str
+    robot: HapticMaster
+
+    def get_pos(self) -> list:
         msg = 'get ' + self.name + ' pos'
 
-        return send_message(s, msg)
+        return self.robot.send_message(self.robot.sock, msg)
 
     def get_vel(self) -> str:
         return 'get ' + self.name + ' vel'
