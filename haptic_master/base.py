@@ -9,28 +9,59 @@ class Base:
     def get_pos(self) -> list:
         msg = 'get ' + self.name + ' pos'
 
-        return self.robot.send_message(self.robot.sock, msg)
+        return self.robot._string_to_list(self.robot.send_message(msg))
+    
+    def set_pos(self, value: list) -> bool:
+        msg = 'set ' + self.name + ' pos ' + str(value).replace(' ', '')
 
-    def get_vel(self) -> str:
-        return 'get ' + self.name + ' vel'
-    
-    def get_att(self) -> str:
-        return 'get ' + self.name + ' att'
-    
-    def get_enable(self) -> str:
-        return 'get ' + self.name + ' enabled'
-    
-    def set_pos(self, value: list) -> str:
-        return 'set ' + self.name + ' pos ' + str(value).replace(' ', '')
-    
-    def set_vel(self, value: list) -> str:
-        return 'set ' + self.name + ' vel ' + str(value).replace(' ', '')
-    
-    def set_att(self, value: list) -> str:
-        'set ' + self.name + ' att ' + str(value).replace(' ', '')
+        if 'Effect\'s position set' in self.robot.send_message(msg):
+            return True
+        else:
+            return False
 
-    def set_enable(self) -> str:
-        return 'set ' + self.name + ' enable'
+    def get_vel(self) -> list:
+        msg = 'get ' + self.name + ' vel'
+
+        return self.robot._string_to_list(self.robot.send_message(msg))
     
-    def set_disable(self) -> str:
-        return 'set ' + self.name + ' disable'
+    def set_vel(self, value: list) -> bool:
+        msg = 'set ' + self.name + ' vel ' + str(value).replace(' ', '')
+
+        if 'Effect\'s velocity set' in self.robot.send_message(msg):
+            return True
+        else:
+            return False
+    
+    def get_att(self) -> list:
+        msg = 'get ' + self.name + ' att'
+
+        return self.robot._string_to_list(self.robot.send_message(msg))
+    
+    def set_att(self, value: list) -> bool:
+        msg = 'set ' + self.name + ' att ' + str(value).replace(' ', '')
+
+        if 'Effect\'s attitude set' in self.robot.send_message(msg):
+            return True
+        else:
+            return False
+
+    def set_enable(self) -> bool:
+        msg = 'set ' + self.name + ' enable'
+
+        if 'enabled' in self.robot.send_message(msg):
+            return True
+        else:
+            return False
+    
+    def set_disable(self) -> bool:
+        msg = 'set ' + self.name + ' disable'
+
+        if 'disabled' in self.robot.send_message(msg):
+            return True
+        else:
+            return False
+    
+    def get_enabled(self) -> bool:
+        msg = 'get ' + self.name + ' enabled'
+        
+        return self.robot._string_to_bool(self.robot.send_message(msg))
