@@ -18,23 +18,6 @@ class TestHapticMaster(unittest.TestCase):
 
         robot.disconnect()
     
-    def test_state(self):
-        '''
-        Testing the robot states, set the robot states to position and force
-        '''
-        
-        # Open connection 
-        robot = HapticMaster(IP, PORT)
-        robot.connect()
-
-        # Set state to position
-        self.assertEqual(robot.set_state('position'), 'state set to \'position\'')
-
-        # Set state to force
-        self.assertEqual(robot.set_state('force'), 'state set to \'force\'')
-
-        robot.disconnect()
-
     def test_inertia(self):
         '''
         Testing the inertia of the robot, set the inertia to the specified
@@ -53,6 +36,50 @@ class TestHapticMaster(unittest.TestCase):
 
         # Get inertia value
         self.assertEqual(robot.get_inertia(), end_effector_inertia)
+
+        robot.disconnect()
+
+    def test_state(self):
+        '''
+        Testing the robot states, set the robot states to position and force
+        '''
+        
+        # Open connection 
+        robot = HapticMaster(IP, PORT)
+        robot.connect()
+
+        # Set state to position
+        self.assertEqual(robot.set_state('position'), 'state set to \'position\'')
+
+        # Read the state value from the robot
+        self.assertEqual(robot.get_state(), 'position')
+
+        # Set state to force
+        self.assertEqual(robot.set_state('force'), 'state set to \'force\'')
+
+        # Read the state value from the robot
+        self.assertEqual(robot.get_state(), 'force')
+
+        robot.disconnect()
+
+    def test_coulombfriction(self):
+        '''
+        Testing the coulomb friction
+        Set the friction coefficient to a predefined value and read it from
+        the robot
+        '''
+        
+        # Open connection 
+        robot = HapticMaster(IP, PORT)
+        robot.connect()
+
+        coulomb_friction_coef = 0.205
+
+        # Set the Coulomb friction coefficient
+        self.assertTrue(robot.set_coulombfriction(coulomb_friction_coef))
+
+        # Read the Coulomb friction coefficient from the robot
+        self.assertEqual(robot.get_coulombfriction(), coulomb_friction_coef)
 
         robot.disconnect()
 

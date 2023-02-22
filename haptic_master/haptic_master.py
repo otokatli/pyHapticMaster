@@ -3,38 +3,19 @@ from typing import Tuple
 import re
 import logging
 from string import printable
+from dataclasses import dataclass, field
 
 
-
+@dataclass(frozen=True)
 class HapticMaster:
-    def __init__(self, ip: str, port: int, inertia_value: float = 0.0) -> None:
-        self._ip = ip
-        self._port = port
-        self._inertia = inertia_value
-        self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    
-    @property
-    def address(self) -> Tuple[str, int]:
-        return (self._ip, self._port)
-
-    @property
-    def sock(self):
-        return self._socket
-    
-    # @property
-    # def inertia(self) -> float:
-    #     return self._inertia
-
-    # @inertia.setter
-    # def inertia(self, new_inertia: float):
-    #     self._inertia = new_inertia
-    #     msg = 'set inertia ' + str(new_inertia)
-    #     print(send_message(self._socket, msg))
+    ip: str
+    port: int
+    sock: socket = field(default_factory=lambda: socket.socket(socket.AF_INET, socket.SOCK_STREAM))
 
     def connect(self):
         try:
             # Connect to the robot
-            self._socket.connect((self._ip, self._port))
+            self.sock.connect((self.ip, self.port))
 
         except socket.error:
             logging.error('Connection error')
@@ -45,7 +26,7 @@ class HapticMaster:
         logging.info(self.send_message(msg))
 
         # Close connection
-        self._socket.close()
+        self.sock.close()
 
     def get_inertia(self) -> float:
         msg = 'get inertia'
@@ -61,13 +42,106 @@ class HapticMaster:
 
         return True 
 
+    def get_state(self) -> str:
+        msg = 'get state'
+        
+        return self.send_message(msg)
+    
     def set_state(self, device_state):
         if device_state in ['init', 'off', 'force', 'position', 'home']:
             msg = 'set state ' + device_state
             return self.send_message(msg)
         else:
             raise ValueError('Wrong state name is given')
-        
+    
+    def get_coulombfriction(self) -> float:
+        msg = 'get coulombfriction'
+
+        return float(self.send_message(msg))
+    
+    def set_coulombfriction(self, value: float) -> bool:
+        msg = 'set coulombfriction ' + str(value)
+
+        if 'Coulomb friction set' in self.send_message(msg):
+            return True
+        else:
+            return False
+    
+    def get_measpos(self) -> list:
+        msg = 'get measpos'
+
+        return self._string_to_list(self.send_message(msg))
+    
+    def get_measforce(self) -> list:
+        msg = 'get measforce'
+
+        return self._string_to_list(self.send_message(msg))
+    
+    def get_modelpos(self) -> list:
+        msg = 'get modelpos'
+
+        return self._string_to_list(self.send_message(msg))
+    
+    def get_modelvel(self) -> list:
+        msg = 'get modelvel'
+
+        return self._string_to_list(self.send_message(msg))
+    
+    def get_modelacc(self) -> list:
+        msg = 'get modelacc'
+
+        return self._string_to_list(self.send_message(msg))
+    
+    def get_measposjoint(self) -> list:
+        msg = 'get measposjoint'
+
+        return self._string_to_list(self.send_message(msg))
+    
+    def get_measforcejoint(self) -> list:
+        msg = 'get measforcejoint'
+
+        return self._string_to_list(self.send_message(msg))
+    
+    def get_modelposjoint(self) -> list:
+        msg = 'get modelposjoint'
+
+        return self._string_to_list(self.send_message(msg))
+    
+    def get_modelveljoint(self) -> list:
+        msg = 'get modelveljoint'
+
+        return self._string_to_list(self.send_message(msg))
+    
+    def get_modelaccjoint(self) -> list:
+        msg = 'get modelaccjoint'
+
+        return self._string_to_list(self.send_message(msg))
+    
+    def get_force_calibrated(self) -> bool:
+        msg = 'get force_calibrated'
+
+        return self._string_to_bool(self.send_message(msg))
+    
+    def get_position_calibrated(self) -> bool:
+        msg = 'get position_calibrated'
+
+        return self._string_to_bool(self.send_message(msg))
+    
+    def get_workspace_r(self) -> list:
+        msg = 'get workspace_r'
+
+        return self._string_to_list(self.send_message(msg))
+    
+    def get_workspace_phi(self) -> list:
+        msg = 'get workspace_phi'
+
+        return self._string_to_list(self.send_message(msg))
+    
+    def get_workspace_z(self) -> list:
+        msg = 'get workspace_z'
+
+        return self._string_to_list(self.send_message(msg))
+    
     def _haptic_master_message(self, msg):
         hm_msg = [0, 0, 0, 0, 0, 0, 0, 0]
         
@@ -82,14 +156,20 @@ class HapticMaster:
         msg_str = ''.join(c for c in msg.decode('ascii') if c in printable)
         
         if re.search('[a-zA-Z]', msg_str):
-            return msg_str.replace('"', '')
+            return msg_str.replace('"', '').replace('\n', '')
         else:
             return msg_str
 
     def send_message(self, msg: str) -> str:
-        self._socket.sendall(bytearray(self._haptic_master_message(msg)))
+        self.sock.sendall(bytearray(self._haptic_master_message(msg)))
 
         try:
-            return self._haptic_master_response(self._socket.recv(1024))
+            return self._haptic_master_response(self.sock.recv(1024))
         except Exception as e:
             raise e
+
+    def _string_to_list(self, s: str):
+        return [float(si) for si in s[s.find('[')+1:s.find(']')].split(',')]
+    
+    def _string_to_bool(self, s: str):
+        return True if 'true' in s else False
