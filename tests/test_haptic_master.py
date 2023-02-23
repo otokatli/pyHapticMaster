@@ -11,19 +11,19 @@ class TestHapticMaster(unittest.TestCase):
         '''
         Testing the robot communication
         '''
-        
-        # Open connection 
+
+        # Open connection
         robot = HapticMaster(IP, PORT)
         robot.connect()
 
         robot.disconnect()
-    
+
     def test_inertia(self):
         '''
         Testing the inertia of the robot, set the inertia to the specified
         value and read the inertia from the robot
         '''
-            
+
         # Open connection]
         robot = HapticMaster(IP, PORT)
         robot.connect()
@@ -43,8 +43,8 @@ class TestHapticMaster(unittest.TestCase):
         '''
         Testing the robot states, set the robot states to position and force
         '''
-        
-        # Open connection 
+
+        # Open connection
         robot = HapticMaster(IP, PORT)
         robot.connect()
 
@@ -68,8 +68,8 @@ class TestHapticMaster(unittest.TestCase):
         Set the friction coefficient to a predefined value and read it from
         the robot
         '''
-        
-        # Open connection 
+
+        # Open connection
         robot = HapticMaster(IP, PORT)
         robot.connect()
 
@@ -87,8 +87,8 @@ class TestHapticMaster(unittest.TestCase):
         '''
         Testing the force sensor calibration
         '''
-        
-        # Open connection 
+
+        # Open connection
         robot = HapticMaster(IP, PORT)
         robot.connect()
 

@@ -56,7 +56,7 @@ class TestHapticMaster(unittest.TestCase):
         # Set max ejection velocity of the object and read it from the robot
         self.assertTrue(myBlock.set_ejection_velmax(ejection_velmax))
         self.assertEqual(myBlock.get_ejection_velmax(), ejection_velmax)
-        
+
         # Set ejection damping of the object and read it from the robot
         self.assertTrue(myBlock.set_ejection_damping(ejection_damping))
         self.assertEqual(myBlock.get_ejection_damping(), ejection_damping)
@@ -149,6 +149,6 @@ class TestHapticMaster(unittest.TestCase):
 
         robot.disconnect()
 
-        
+
 if __name__ == '__main__':
     unittest.main()

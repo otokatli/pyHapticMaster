@@ -12,7 +12,7 @@ class TestHapticMaster(unittest.TestCase):
         '''
         Testing the spring effect
         '''
-        
+
         # Open connection
         robot = HapticMaster(IP, PORT)
         robot.connect()
@@ -49,11 +49,11 @@ class TestHapticMaster(unittest.TestCase):
         # Enable the spring
         self.assertTrue(mySpring.set_enable())
         self.assertEqual(mySpring.get_enabled(), True)
-        
+
         # Disable the spring
         self.assertTrue(mySpring.set_disable())
         self.assertEqual(mySpring.get_enabled(), False)
-        
+
         # Set stiffness and read it from the robot
         self.assertTrue(mySpring.set_stiffness(stiffness))
         self.assertEqual(mySpring.get_stiffness(), stiffness)
@@ -110,7 +110,7 @@ class TestHapticMaster(unittest.TestCase):
         '''
         Testing the bias force effect
         '''
-   
+
         # Open connection
         robot = HapticMaster(IP, PORT)
         robot.connect()
@@ -129,6 +129,6 @@ class TestHapticMaster(unittest.TestCase):
 
         robot.disconnect()
 
-        
+
 if __name__ == '__main__':
     unittest.main()
