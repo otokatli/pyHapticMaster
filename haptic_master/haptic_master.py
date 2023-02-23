@@ -70,77 +70,77 @@ class HapticMaster:
     def get_measpos(self) -> list:
         msg = 'get measpos'
 
-        return self._string_to_list(self.send_message(msg))
+        return self.string_to_list(self.send_message(msg))
 
     def get_measforce(self) -> list:
         msg = 'get measforce'
 
-        return self._string_to_list(self.send_message(msg))
+        return self.string_to_list(self.send_message(msg))
 
     def get_modelpos(self) -> list:
         msg = 'get modelpos'
 
-        return self._string_to_list(self.send_message(msg))
+        return self.string_to_list(self.send_message(msg))
 
     def get_modelvel(self) -> list:
         msg = 'get modelvel'
 
-        return self._string_to_list(self.send_message(msg))
+        return self.string_to_list(self.send_message(msg))
 
     def get_modelacc(self) -> list:
         msg = 'get modelacc'
 
-        return self._string_to_list(self.send_message(msg))
+        return self.string_to_list(self.send_message(msg))
 
     def get_measposjoint(self) -> list:
         msg = 'get measposjoint'
 
-        return self._string_to_list(self.send_message(msg))
+        return self.string_to_list(self.send_message(msg))
 
     def get_measforcejoint(self) -> list:
         msg = 'get measforcejoint'
 
-        return self._string_to_list(self.send_message(msg))
+        return self.string_to_list(self.send_message(msg))
 
     def get_modelposjoint(self) -> list:
         msg = 'get modelposjoint'
 
-        return self._string_to_list(self.send_message(msg))
+        return self.string_to_list(self.send_message(msg))
 
     def get_modelveljoint(self) -> list:
         msg = 'get modelveljoint'
 
-        return self._string_to_list(self.send_message(msg))
+        return self.string_to_list(self.send_message(msg))
 
     def get_modelaccjoint(self) -> list:
         msg = 'get modelaccjoint'
 
-        return self._string_to_list(self.send_message(msg))
+        return self.string_to_list(self.send_message(msg))
 
     def get_force_calibrated(self) -> bool:
         msg = 'get force_calibrated'
 
-        return self._string_to_bool(self.send_message(msg))
+        return self.string_to_bool(self.send_message(msg))
 
     def get_position_calibrated(self) -> bool:
         msg = 'get position_calibrated'
 
-        return self._string_to_bool(self.send_message(msg))
+        return self.string_to_bool(self.send_message(msg))
 
     def get_workspace_r(self) -> list:
         msg = 'get workspace_r'
 
-        return self._string_to_list(self.send_message(msg))
+        return self.string_to_list(self.send_message(msg))
 
     def get_workspace_phi(self) -> list:
         msg = 'get workspace_phi'
 
-        return self._string_to_list(self.send_message(msg))
+        return self.string_to_list(self.send_message(msg))
 
     def get_workspace_z(self) -> list:
         msg = 'get workspace_z'
 
-        return self._string_to_list(self.send_message(msg))
+        return self.string_to_list(self.send_message(msg))
 
     def calibrateforcesensor(self) -> bool:
         return 'Force sensor calibrated' in self.send_message('calibrateforcesensor')
@@ -171,8 +171,8 @@ class HapticMaster:
         except Exception as e:
             raise e
 
-    def _string_to_list(self, s: str):
+    def string_to_list(self, s: str):
         return [float(si) for si in s[s.find('[')+1:s.find(']')].split(',')]
 
-    def _string_to_bool(self, s: str):
+    def string_to_bool(self, s: str):
         return True if 'true' in s else False

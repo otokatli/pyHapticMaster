@@ -27,7 +27,7 @@ class Object(Base):
     def get_no_pull(self) -> bool:
         msg = 'get ' + self.name + ' no_pull'
 
-        return self.robot._string_to_bool(self.robot.send_message(msg))
+        return self.robot.string_to_bool(self.robot.send_message(msg))
 
     def set_no_pull(self, value: bool) -> bool:
         msg = 'set ' + self.name + ' no_pull ' + str(value).lower()
@@ -115,7 +115,7 @@ class Block(Object):
     def get_size(self) -> list:
         msg = 'get ' + self.name + ' size'
 
-        return self.robot._string_to_list(self.robot.send_message(msg))
+        return self.robot.string_to_list(self.robot.send_message(msg))
 
     def set_size(self, value: list) -> bool:
         msg = 'set ' + self.name + ' size ' + str(value).replace(' ', '')
@@ -151,7 +151,7 @@ class FlatPlane(Object):
     def get_normal(self) -> list:
         msg = 'get ' + self.name + ' normal'
 
-        return self.robot._string_to_list(self.robot.send_message(msg))
+        return self.robot.string_to_list(self.robot.send_message(msg))
 
     def set_normal(self, value: list) -> bool:
         msg = 'set ' + self.name + ' normal ' + str(value).replace(' ', '')

@@ -47,7 +47,7 @@ class Spring(Effect):
     def get_direction(self) -> list:
         msg = 'get ' + self.name + ' direction'
 
-        return self.robot._string_to_list(self.robot.send_message(msg))
+        return self.robot.string_to_list(self.robot.send_message(msg))
 
     def set_direction(self, value: list) -> bool:
         msg = 'set ' + self.name + ' direction ' + str(value).replace(' ', '')
@@ -67,7 +67,7 @@ class Spring(Effect):
     def get_dampglobal(self) -> bool:
         msg = 'get ' + self.name + ' dampglobal'
 
-        return self.robot._string_to_bool(self.robot.send_message(msg))
+        return self.robot.string_to_bool(self.robot.send_message(msg))
 
     def set_dampglobal(self, value: bool) -> bool:
         msg = 'set ' + self.name + ' dampglobal ' + str(value).lower()
@@ -85,7 +85,7 @@ class Damper(Effect):
     def get_dampcoef(self) -> list:
         msg = 'get ' + self.name + ' dampcoef'
 
-        return self.robot._string_to_list(self.robot.send_message(msg))
+        return self.robot.string_to_list(self.robot.send_message(msg))
 
     def set_dampcoef(self, value: list) -> bool:
         msg = 'set ' + self.name + ' dampcoef ' + str(value).replace(' ', '')
@@ -103,7 +103,7 @@ class BiasForce(Effect):
     def get_force(self) -> list:
         msg = 'get ' + self.name + ' force'
 
-        return self.robot._string_to_list(self.robot.send_message(msg))
+        return self.robot.string_to_list(self.robot.send_message(msg))
 
     def set_force(self, value: list) -> bool:
         msg = 'set ' + self.name + ' force ' + str(value).replace(' ', '')
