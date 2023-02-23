@@ -1,3 +1,19 @@
+'''Test the haptic master
+
+Classes
+-------
+TestHapticMaster
+
+Functions
+---------
+test_connection()
+test_inertia()
+test_state()
+test_coulombfriction()
+test_calibrate_force_sensor()
+
+'''
+
 import unittest
 from haptic_master.haptic_master import HapticMaster
 
@@ -7,10 +23,25 @@ PORT = 7654
 
 
 class TestHapticMaster(unittest.TestCase):
+    '''Unit test class for testing the haptic master
+    
+    Methods
+    -------
+    test_connection()
+        Test the connection to the robot
+    test_inertia()
+        Test the inertia of the robot
+    test_state()
+        Test the states of the robot
+    test_coulombfriction()
+        Test the Coulomb friction of the robot
+    test_calibrate_force_sensor()
+        Test the force sensor calibration of the robot
+    
+    '''
+
     def test_connection(self):
-        '''
-        Testing the robot communication
-        '''
+        '''Testing the robot communication'''
 
         # Open connection
         robot = HapticMaster(IP, PORT)
@@ -84,9 +115,7 @@ class TestHapticMaster(unittest.TestCase):
         robot.disconnect()
 
     def test_calibrate_force_sensor(self):
-        '''
-        Testing the force sensor calibration
-        '''
+        '''Testing the force sensor calibration'''
 
         # Open connection
         robot = HapticMaster(IP, PORT)

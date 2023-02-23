@@ -1,3 +1,19 @@
+'''Test the haptic objects
+
+Classes
+-------
+TestObjects
+
+Functions
+---------
+test_block()
+test_sphere()
+test_flat_plane()
+test_cylinder()
+test_torus()
+
+'''
+
 import unittest
 from haptic_master.haptic_master import HapticMaster
 from haptic_master.object import Block, Cylinder, FlatPlane, Sphere, Torus
@@ -8,7 +24,26 @@ PORT = 7654
 
 
 class TestObjects(unittest.TestCase):
+    '''Unit test class for testing the haptic objects
+    
+    Methods
+    -------
+    test_block()
+        Test the block object
+    test_sphere()
+        Test the sphere object
+    test_flat_plane()
+        Test the flat plane object
+    test_cylinder()
+        Test the cylinder object
+    test_torus()
+        Test the torus object
+    
+    '''
+
     def test_block(self):
+        '''Testing block object'''
+
         # Open connection
         robot = HapticMaster(IP, PORT)
         robot.connect()
@@ -79,6 +114,8 @@ class TestObjects(unittest.TestCase):
         robot.disconnect()
 
     def test_sphere(self):
+        '''Testing sphere object'''
+
         # Open connection
         robot = HapticMaster(IP, PORT)
         robot.connect()
@@ -95,6 +132,8 @@ class TestObjects(unittest.TestCase):
         robot.disconnect()
 
     def test_flat_plane(self):
+        '''Testing flat plane object'''
+
         # Open connection
         robot = HapticMaster(IP, PORT)
         robot.connect()
@@ -111,6 +150,8 @@ class TestObjects(unittest.TestCase):
         robot.disconnect()
 
     def test_cylinder(self):
+        '''Testing cylinder object'''
+
         # Open connection
         robot = HapticMaster(IP, PORT)
         robot.connect()
@@ -130,6 +171,8 @@ class TestObjects(unittest.TestCase):
         robot.disconnect()
 
     def test_torus(self):
+        '''Testing torus object'''
+
         # Open connection
         robot = HapticMaster(IP, PORT)
         robot.connect()

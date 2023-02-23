@@ -1,3 +1,18 @@
+'''Test the haptic effects
+
+Classes
+-------
+TestEffects
+
+Functions
+---------
+test_spring()
+test_damper()
+test_bias_force()
+test_shaker()
+
+'''
+
 import unittest
 from haptic_master.haptic_master import HapticMaster
 from haptic_master.effect import BiasForce, Damper, Shaker, Spring
@@ -8,10 +23,23 @@ PORT = 7654
 
 
 class TestEffects(unittest.TestCase):
+    '''Unit test class for testing the haptic effects
+    
+    Methods
+    -------
+    test_spring()
+        Test the spring effect
+    test_damper()
+        Test the damper effect
+    test_bias_force()
+        Test the bias force effect
+    test_shaker()
+        Test the shaker effect
+    
+    '''
+    
     def test_spring(self):
-        '''
-        Testing the spring effect
-        '''
+        '''Testing the spring effect'''
 
         # Open connection
         robot = HapticMaster(IP, PORT)
@@ -84,9 +112,7 @@ class TestEffects(unittest.TestCase):
         robot.disconnect()
 
     def test_damper(self):
-        '''
-        Testing the damper effect
-        '''
+        '''Testing the damper effect'''
 
         # Open connection
         robot = HapticMaster(IP, PORT)
@@ -107,9 +133,7 @@ class TestEffects(unittest.TestCase):
         robot.disconnect()
 
     def test_bias_force(self):
-        '''
-        Testing the bias force effect
-        '''
+        '''Testing the bias force effect'''
 
         # Open connection
         robot = HapticMaster(IP, PORT)
@@ -130,6 +154,8 @@ class TestEffects(unittest.TestCase):
         robot.disconnect()
 
     def test_shaker(self):
+        '''Testing the shaker effect'''
+
         # Open connection
         robot = HapticMaster(IP, PORT)
         robot.connect()
