@@ -8,14 +8,14 @@ from dataclasses import dataclass, field
 
 @dataclass(frozen=True)
 class HapticMaster:
-    ip: str
+    ip_address: str
     port: int
     sock: socket = field(default_factory=lambda: socket.socket(socket.AF_INET, socket.SOCK_STREAM))
 
     def connect(self):
         try:
             # Connect to the robot
-            self.sock.connect((self.ip, self.port))
+            self.sock.connect((self.ip_address, self.port))
 
         except socket.error:
             logging.error('Connection error')
@@ -164,11 +164,11 @@ class HapticMaster:
 
         try:
             return self._haptic_master_response(self.sock.recv(1024))
-        except Exception as e:
-            raise e
+        except Exception as socket_exception:
+            raise socket_exception
 
-    def string_to_list(self, s: str):
-        return [float(si) for si in s[s.find('[')+1:s.find(']')].split(',')]
+    def string_to_list(self, list_s: str):
+        return [float(si) for si in list_s[list_s.find('[')+1:list_s.find(']')].split(',')]
 
-    def string_to_bool(self, s: str):
-        return True if 'true' in s else False
+    def string_to_bool(self, bool_s: str):
+        return 'true' in bool_s
