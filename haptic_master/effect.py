@@ -1,5 +1,5 @@
-from haptic_master.base import Base
 from dataclasses import dataclass
+from haptic_master.base import Base
 
 
 @dataclass(frozen=True, slots=True)
@@ -109,4 +109,3 @@ class BiasForce(Effect):
         msg = 'set ' + self.name + ' force ' + str(value).replace(' ', '')
 
         return 'Bias force\'s force set' in self.robot.send_message(msg)
-
