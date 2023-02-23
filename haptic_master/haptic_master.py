@@ -156,8 +156,8 @@ class HapticMaster:
 
         if re.search('[a-zA-Z]', msg_str):
             return msg_str.replace('"', '').replace('\n', '')
-        else:
-            return msg_str
+
+        return msg_str
 
     def send_message(self, msg: str) -> str:
         self.sock.sendall(bytearray(self._haptic_master_message(msg)))
