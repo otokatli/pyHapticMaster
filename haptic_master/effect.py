@@ -7,13 +7,13 @@ class Effect(Base):
     pass
 
 
-@dataclass(frozen=True, slots=True)    
+@dataclass(frozen=True, slots=True)
 class Spring(Effect):
     def create(self) -> bool:
         msg = 'create spring ' + self.name
 
         return f'Effect spring with name {self.name} created' in self.robot.send_message(msg)
-    
+
     def get_stiffness(self) -> float:
         msg = 'get ' + self.name + ' stiffness'
 
@@ -28,7 +28,7 @@ class Spring(Effect):
         msg = 'get ' + self.name + ' dampfactor'
 
         return float(self.robot.send_message(msg))
-    
+
     def set_dampfactor(self, value: float) -> bool:
         msg = 'set ' + self.name + ' dampfactor ' + str(value)
 
@@ -38,7 +38,7 @@ class Spring(Effect):
         msg = 'get ' + self.name + ' deadband'
 
         return float(self.robot.send_message(msg))
-    
+
     def set_deadband(self, value: float) -> bool:
         msg = 'set ' + self.name + ' deadband ' + str(value)
 
@@ -68,7 +68,7 @@ class Spring(Effect):
         msg = 'get ' + self.name + ' dampglobal'
 
         return self.robot._string_to_bool(self.robot.send_message(msg))
-    
+
     def set_dampglobal(self, value: bool) -> bool:
         msg = 'set ' + self.name + ' dampglobal ' + str(value).lower()
 
@@ -81,12 +81,12 @@ class Damper(Effect):
         msg = 'create damper ' + self.name
 
         return f'Effect damper with name {self.name} created' in self.robot.send_message(msg)
-        
+
     def get_dampcoef(self) -> list:
         msg = 'get ' + self.name + ' dampcoef'
 
         return self.robot._string_to_list(self.robot.send_message(msg))
-    
+
     def set_dampcoef(self, value: list) -> bool:
         msg = 'set ' + self.name + ' dampcoef ' + str(value).replace(' ', '')
 
@@ -99,14 +99,14 @@ class BiasForce(Effect):
         msg = 'create biasforce ' + self.name
 
         return f'Effect biasforce with name {self.name} created' in self.robot.send_message(msg)
-        
+
     def get_force(self) -> list:
         msg = 'get ' + self.name + ' force'
 
         return self.robot._string_to_list(self.robot.send_message(msg))
-    
+
     def set_force(self, value: list) -> bool:
         msg = 'set ' + self.name + ' force ' + str(value).replace(' ', '')
-     
+
         return 'Bias force\'s force set' in self.robot.send_message(msg)
-    
+
