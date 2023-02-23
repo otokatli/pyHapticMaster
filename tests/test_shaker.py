@@ -1,6 +1,6 @@
+import unittest
 from haptic_master.haptic_master import HapticMaster
 from haptic_master.shaker import Shaker
-import unittest
 
 
 IP = '192.168.0.25'
