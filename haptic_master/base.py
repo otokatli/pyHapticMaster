@@ -1,3 +1,25 @@
+'''Create a base for effects and objects
+
+Classes
+-------
+Base
+
+Functions
+---------
+get_pos()
+set_pos(value)
+get_vel()
+set_vel(value)
+get_att()
+set_att(value)
+
+Variables
+---------
+name
+robot
+
+'''
+
 from dataclasses import dataclass
 from .haptic_master import HapticMaster
 

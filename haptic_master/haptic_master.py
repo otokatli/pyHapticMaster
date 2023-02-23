@@ -1,3 +1,43 @@
+'''Class for handling HapticMaster communications and operations
+
+Classes
+-------
+HapticMaster
+
+Functions
+---------
+connect()
+disconnect()
+get_inertia()
+set_inertia(value)
+get_state()
+set_state(value)
+get_coulombfriction()
+set_coulombfriction(value)
+get_measpos()
+get_measforce()
+get_modelpos()
+get_modelvel()
+get_modelacc()
+get_measposjoint()
+get_measforcejoint()
+get_modelposjoint()
+get_modelveljoint()
+get_modelaccjoint()
+get_force_calibrated()
+get_position_calibrated()
+get_workspace_r()
+get_workspace_phi()
+get_workspace_z()
+
+Variables
+---------
+ip_address
+port
+sock
+
+'''
+
 import socket
 import re
 import logging

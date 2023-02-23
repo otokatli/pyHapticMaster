@@ -1,3 +1,43 @@
+'''Object classes for HapticMaster
+
+Classes
+-------
+Object
+Block
+Sphere
+FlatPlane
+Cylinder
+Torus
+
+Functions
+---------
+get_stiffness()
+set_stiffness(value)
+get_dampfactor()
+set_dampfactor(value)
+get_no_pull()
+set_no_pull(value)
+get_tang_damping()
+set_tang_damping(value)
+get_damping_forcemax()
+set_damping_forcemax(value)
+get_friction()
+set_friction(value)
+get_ejection_velmax()
+set_ejection_velmax(value)
+get_ejection_damping()
+set_ejection_damping(value)
+get_outward_forcemax()
+set_outward_forcemax(value)
+get_powermax()
+get_powermax(value)
+
+create()
+get_size()
+set_size(value)
+
+'''
+
 from dataclasses import dataclass
 from haptic_master.base import Base
 
@@ -354,6 +394,19 @@ class Object(Base):
 
 @dataclass(frozen=True, slots=True)
 class Block(Object):
+    '''A class for block objects
+    
+    Methods
+    -------
+    create()
+        Create a block
+    get_size()
+        Get the size of the block
+    set_size(value)
+        Set the size of the block
+
+    '''
+
     def create(self):
         '''Create a block object on the robot
 
@@ -400,6 +453,19 @@ class Block(Object):
 
 @dataclass(frozen=True, slots=True)
 class Sphere(Object):
+    '''A class for sphere objects
+    
+    Methods
+    -------
+    create()
+        Create a sphere
+    get_radius()
+        Get the radius of the sphere
+    set_radius(value)
+        Set the radius of the sphere
+
+    '''
+
     def create(self):
         '''Create a sphere object on the robot
 
@@ -446,6 +512,19 @@ class Sphere(Object):
 
 @dataclass(frozen=True, slots=True)
 class FlatPlane(Object):
+    '''A class for flat plane objects
+    
+    Methods
+    -------
+    create()
+        Create a flat plane
+    get_normal()
+        Get the normal of the flat plane
+    set_normal(value)
+        Set the normal of the flat plane
+
+    '''
+
     def create(self):
         '''Create a flat plane object on the robot
 
@@ -492,6 +571,23 @@ class FlatPlane(Object):
 
 @dataclass(frozen=True, slots=True)
 class Cylinder(Object):
+    '''A class for cylinder objects
+    
+    Methods
+    -------
+    create()
+        Create a cylinder
+    get_radius()
+        Get the radius of the cylinder
+    set_radius(value)
+        Set the radius of the cylinder
+    get_length()
+        Get the length of the cylinder
+    set_length(value)
+        Set the length of the cylinder
+
+    '''
+
     def create(self):
         '''Create a cylinder object on the robot
 
@@ -568,6 +664,23 @@ class Cylinder(Object):
 
 @dataclass(frozen=True, slots=True)
 class Torus(Object):
+    '''A class for torus objects
+    
+    Methods
+    -------
+    create()
+        Create a torus
+    get_ringradius()
+        Get the ring radius of the torus
+    set_ringradius(value)
+        Set the ring radius of the torus
+    get_tuberadius()
+        Get the tube radius of the torus
+    set_tuberadius(value)
+        Set the tube radius of the torus
+
+    '''
+
     def create(self):
         '''Create a torus object on the robot
 
@@ -640,3 +753,4 @@ class Torus(Object):
         msg = 'set ' + self.name + ' tuberadius ' + str(value)
 
         return 'Torus\'s tube radius set' in self.robot.send_message(msg)
+        
