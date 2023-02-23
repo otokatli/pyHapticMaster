@@ -24,7 +24,7 @@ class TestHapticMaster(unittest.TestCase):
         deadband = 1.3
         maxforce = 12.5
 
-        my_shaker = Shaker('my_shaker', robot)
+        my_shaker = Shaker('myShaker', robot)
 
         self.assertTrue(my_shaker.create())
 
