@@ -71,12 +71,12 @@ class TestHapticMaster(unittest.TestCase):
         self.assertEqual(my_spring.get_direction(), direction)
 
         # # Set spring's maximum force and read it from the robot
-        self.assertTrue(my_spring.set_maxforce(deadband))
-        self.assertEqual(my_spring.get_maxforce(), deadband)
+        self.assertTrue(my_spring.set_maxforce(maxforce))
+        self.assertEqual(my_spring.get_maxforce(), maxforce)
 
         # Set spring's global damping and read it from the robot
-        self.assertTrue(my_spring.set_dampglobal(True))
-        self.assertTrue(my_spring.get_dampglobal())
+        self.assertTrue(my_spring.set_dampglobal(dampglobal))
+        self.assertFalse(my_spring.get_dampglobal())
 
         # Remove effect
         self.assertTrue(my_spring.remove())
