@@ -78,6 +78,9 @@ class TestHapticMaster(unittest.TestCase):
         self.assertTrue(mySpring.set_dampglobal(True))
         self.assertTrue(mySpring.get_dampglobal())
 
+        # Remove effect
+        self.assertTrue(mySpring.remove())
+
         robot.disconnect()
 
     def test_damper(self):

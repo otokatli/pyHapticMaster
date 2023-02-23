@@ -50,3 +50,6 @@ class Base:
         msg = 'get ' + self.name + ' enabled'
         
         return self.robot._string_to_bool(self.robot.send_message(msg))
+    
+    def remove(self) -> bool:
+        return 'Removed' in self.robot.send_message(f'remove {self.name}')

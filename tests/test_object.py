@@ -73,6 +73,9 @@ class TestHapticMaster(unittest.TestCase):
         self.assertTrue(myBlock.set_size(block_size))
         self.assertEqual(myBlock.get_size(), block_size)
 
+        # Remove object
+        self.assertTrue(myBlock.remove())
+
         robot.disconnect()
 
     def test_sphere(self):
