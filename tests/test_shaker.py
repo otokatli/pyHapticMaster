@@ -24,39 +24,39 @@ class TestHapticMaster(unittest.TestCase):
         deadband = 1.3
         maxforce = 12.5
 
-        myShaker = Shaker('myShaker', robot)
+        my_shaker = Shaker('my_shaker', robot)
 
-        self.assertTrue(myShaker.create())
+        self.assertTrue(my_shaker.create())
 
-        self.assertTrue(myShaker.set_frequency1(frequency1))
-        self.assertEqual(myShaker.get_frequency1(), frequency1)
+        self.assertTrue(my_shaker.set_frequency1(frequency1))
+        self.assertEqual(my_shaker.get_frequency1(), frequency1)
 
-        self.assertTrue(myShaker.set_frequency2(frequency2))
-        self.assertEqual(myShaker.get_frequency2(), frequency2)
+        self.assertTrue(my_shaker.set_frequency2(frequency2))
+        self.assertEqual(my_shaker.get_frequency2(), frequency2)
 
-        self.assertTrue(myShaker.set_direction(direction))
-        self.assertEqual(myShaker.get_direction(), direction)
+        self.assertTrue(my_shaker.set_direction(direction))
+        self.assertEqual(my_shaker.get_direction(), direction)
 
-        self.assertTrue(myShaker.set_posmax(posmax))
-        self.assertEqual(myShaker.get_posmax(), posmax)
+        self.assertTrue(my_shaker.set_posmax(posmax))
+        self.assertEqual(my_shaker.get_posmax(), posmax)
 
-        self.assertTrue(myShaker.set_velmax(velmax))
-        self.assertEqual(myShaker.get_velmax(), velmax)
+        self.assertTrue(my_shaker.set_velmax(velmax))
+        self.assertEqual(my_shaker.get_velmax(), velmax)
 
-        self.assertTrue(myShaker.set_accmax(accmax))
-        self.assertEqual(myShaker.get_accmax(), accmax)
+        self.assertTrue(my_shaker.set_accmax(accmax))
+        self.assertEqual(my_shaker.get_accmax(), accmax)
 
-        self.assertTrue(myShaker.set_stiffness(stiffness))
-        self.assertEqual(myShaker.get_stiffness(), stiffness)
+        self.assertTrue(my_shaker.set_stiffness(stiffness))
+        self.assertEqual(my_shaker.get_stiffness(), stiffness)
 
-        self.assertTrue(myShaker.set_dampfactor(dampfactor))
-        self.assertEqual(myShaker.get_dampfactor(), dampfactor)
+        self.assertTrue(my_shaker.set_dampfactor(dampfactor))
+        self.assertEqual(my_shaker.get_dampfactor(), dampfactor)
 
-        self.assertTrue(myShaker.set_deadband(deadband))
-        self.assertEqual(myShaker.get_deadband(), deadband)
+        self.assertTrue(my_shaker.set_deadband(deadband))
+        self.assertEqual(my_shaker.get_deadband(), deadband)
 
-        self.assertTrue(myShaker.set_maxforce(maxforce))
-        self.assertEqual(myShaker.get_maxforce(), maxforce)
+        self.assertTrue(my_shaker.set_maxforce(maxforce))
+        self.assertEqual(my_shaker.get_maxforce(), maxforce)
 
         robot.disconnect()
 
