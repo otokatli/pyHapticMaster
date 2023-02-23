@@ -1,5 +1,4 @@
 import socket
-from typing import Tuple
 import re
 import logging
 from string import printable
