@@ -13,9 +13,9 @@ class TestHapticMaster(unittest.TestCase):
         robot = HapticMaster(IP, PORT)
         robot.connect()
 
-        myBlock = Block('myBlock', robot)
+        my_block = Block('myBlock', robot)
 
-        self.assertTrue(myBlock.create())
+        self.assertTrue(my_block.create())
 
         stiffness = 10.23
         dampfactor = 0.593
@@ -30,51 +30,51 @@ class TestHapticMaster(unittest.TestCase):
         block_size = [0.23, 0.31, 0.15]
 
         # Set the stiffness of the object and read it from the robot
-        self.assertTrue(myBlock.set_stiffness(stiffness))
-        self.assertEqual(myBlock.get_stiffness(), stiffness)
+        self.assertTrue(my_block.set_stiffness(stiffness))
+        self.assertEqual(my_block.get_stiffness(), stiffness)
 
         # Set damping factor of the object and read it from the robot
-        self.assertTrue(myBlock.set_dampfactor(dampfactor))
-        self.assertEqual(myBlock.get_dampfactor(), dampfactor)
+        self.assertTrue(my_block.set_dampfactor(dampfactor))
+        self.assertEqual(my_block.get_dampfactor(), dampfactor)
 
         # Set no pull of the object and read it from the robot
-        self.assertTrue(myBlock.set_no_pull(no_pull))
-        self.assertEqual(myBlock.get_no_pull(), no_pull)
+        self.assertTrue(my_block.set_no_pull(no_pull))
+        self.assertEqual(my_block.get_no_pull(), no_pull)
 
         # Set tangential damping of the object and read it from the robot
-        self.assertTrue(myBlock.set_tang_damping(tang_damping))
-        self.assertEqual(myBlock.get_tang_damping(), tang_damping)
+        self.assertTrue(my_block.set_tang_damping(tang_damping))
+        self.assertEqual(my_block.get_tang_damping(), tang_damping)
 
         # Set max damping force of the object and read it from the robot
-        self.assertTrue(myBlock.set_damping_forcemax(damping_forcemax))
-        self.assertEqual(myBlock.get_damping_forcemax(), damping_forcemax)
+        self.assertTrue(my_block.set_damping_forcemax(damping_forcemax))
+        self.assertEqual(my_block.get_damping_forcemax(), damping_forcemax)
 
         # Set friction of the object and read it from the robot
-        self.assertTrue(myBlock.set_friction(friction))
-        self.assertEqual(myBlock.get_friction(), friction)
+        self.assertTrue(my_block.set_friction(friction))
+        self.assertEqual(my_block.get_friction(), friction)
 
         # Set max ejection velocity of the object and read it from the robot
-        self.assertTrue(myBlock.set_ejection_velmax(ejection_velmax))
-        self.assertEqual(myBlock.get_ejection_velmax(), ejection_velmax)
+        self.assertTrue(my_block.set_ejection_velmax(ejection_velmax))
+        self.assertEqual(my_block.get_ejection_velmax(), ejection_velmax)
 
         # Set ejection damping of the object and read it from the robot
-        self.assertTrue(myBlock.set_ejection_damping(ejection_damping))
-        self.assertEqual(myBlock.get_ejection_damping(), ejection_damping)
+        self.assertTrue(my_block.set_ejection_damping(ejection_damping))
+        self.assertEqual(my_block.get_ejection_damping(), ejection_damping)
 
         # Set max outward force of the object and read it from the robot
-        self.assertTrue(myBlock.set_outward_forcemax(outward_forcemax))
-        self.assertEqual(myBlock.get_outward_forcemax(), outward_forcemax)
+        self.assertTrue(my_block.set_outward_forcemax(outward_forcemax))
+        self.assertEqual(my_block.get_outward_forcemax(), outward_forcemax)
 
         # Set max power of the object and read it from the robot
-        self.assertTrue(myBlock.set_powermax(powermax))
-        self.assertEqual(myBlock.get_powermax(), powermax)
+        self.assertTrue(my_block.set_powermax(powermax))
+        self.assertEqual(my_block.get_powermax(), powermax)
 
         # Set block size and read it from the robot
-        self.assertTrue(myBlock.set_size(block_size))
-        self.assertEqual(myBlock.get_size(), block_size)
+        self.assertTrue(my_block.set_size(block_size))
+        self.assertEqual(my_block.get_size(), block_size)
 
         # Remove object
-        self.assertTrue(myBlock.remove())
+        self.assertTrue(my_block.remove())
 
         robot.disconnect()
 
@@ -83,14 +83,14 @@ class TestHapticMaster(unittest.TestCase):
         robot = HapticMaster(IP, PORT)
         robot.connect()
 
-        mySphere = Sphere('mySphere', robot)
+        my_sphere = Sphere('mySphere', robot)
 
-        self.assertTrue(mySphere.create())
+        self.assertTrue(my_sphere.create())
 
         sphere_radius = 0.258
 
-        self.assertTrue(mySphere.set_radius(sphere_radius))
-        self.assertEqual(mySphere.get_radius(), sphere_radius)
+        self.assertTrue(my_sphere.set_radius(sphere_radius))
+        self.assertEqual(my_sphere.get_radius(), sphere_radius)
 
         robot.disconnect()
 
@@ -99,14 +99,14 @@ class TestHapticMaster(unittest.TestCase):
         robot = HapticMaster(IP, PORT)
         robot.connect()
 
-        myFlatPlane = FlatPlane('myFlatPlane', robot)
+        my_flat_plane = FlatPlane('myFlatPlane', robot)
 
-        self.assertTrue(myFlatPlane.create())
+        self.assertTrue(my_flat_plane.create())
 
         plane_normal = [1.0, 0.0, 0.0]
 
-        self.assertTrue(myFlatPlane.set_normal(plane_normal))
-        self.assertEqual(myFlatPlane.get_normal(), plane_normal)
+        self.assertTrue(my_flat_plane.set_normal(plane_normal))
+        self.assertEqual(my_flat_plane.get_normal(), plane_normal)
 
         robot.disconnect()
 
@@ -115,17 +115,17 @@ class TestHapticMaster(unittest.TestCase):
         robot = HapticMaster(IP, PORT)
         robot.connect()
 
-        myCylinder = Cylinder('myCylinder', robot)
+        my_cylinder = Cylinder('myCylinder', robot)
 
-        self.assertTrue(myCylinder.create())
+        self.assertTrue(my_cylinder.create())
 
         cylinder_radius = 0.201
         cylinder_length = 0.492
 
-        self.assertTrue(myCylinder.set_radius(cylinder_radius))
-        self.assertEqual(myCylinder.get_radius(), cylinder_radius)
-        self.assertTrue(myCylinder.set_length(cylinder_length))
-        self.assertEqual(myCylinder.get_length(), cylinder_length)
+        self.assertTrue(my_cylinder.set_radius(cylinder_radius))
+        self.assertEqual(my_cylinder.get_radius(), cylinder_radius)
+        self.assertTrue(my_cylinder.set_length(cylinder_length))
+        self.assertEqual(my_cylinder.get_length(), cylinder_length)
 
         robot.disconnect()
 
@@ -134,18 +134,18 @@ class TestHapticMaster(unittest.TestCase):
         robot = HapticMaster(IP, PORT)
         robot.connect()
 
-        myTorus = Torus('myTorus', robot)
+        my_torus = Torus('myTorus', robot)
 
-        self.assertTrue(myTorus.create())
+        self.assertTrue(my_torus.create())
 
         torus_ring_radius = 0.203
         torus_outer_radius = 0.943
 
-        self.assertTrue(myTorus.set_ringradius(torus_ring_radius))
-        self.assertEqual(myTorus.get_ringradius(), torus_ring_radius)
+        self.assertTrue(my_torus.set_ringradius(torus_ring_radius))
+        self.assertEqual(my_torus.get_ringradius(), torus_ring_radius)
 
-        self.assertTrue(myTorus.set_tuberadius(torus_outer_radius))
-        self.assertEqual(myTorus.get_tuberadius(), torus_outer_radius)
+        self.assertTrue(my_torus.set_tuberadius(torus_outer_radius))
+        self.assertEqual(my_torus.get_tuberadius(), torus_outer_radius)
 
         robot.disconnect()
 
