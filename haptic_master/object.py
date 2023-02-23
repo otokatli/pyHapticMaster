@@ -1,6 +1,8 @@
 from haptic_master.base import Base
+from dataclasses import dataclass
 
 
+@dataclass(frozen=True, slots=True)
 class Object(Base):
     def get_stiffness(self) -> float:
         msg = 'get ' + self.name + ' stiffness'
@@ -103,6 +105,7 @@ class Object(Base):
         return 'Shape\'s power max set' in self.robot.send_message(msg)
 
 
+@dataclass(frozen=True, slots=True)
 class Block(Object):
     def create(self):
         msg = 'create block ' + self.name
@@ -120,6 +123,7 @@ class Block(Object):
         return 'Block\'s size set' in self.robot.send_message(msg)
 
 
+@dataclass(frozen=True, slots=True)
 class Sphere(Object):
     def create(self):
         msg = 'create sphere ' + self.name
@@ -137,6 +141,7 @@ class Sphere(Object):
         return 'Sphere\'s radius set' in self.robot.send_message(msg)
 
 
+@dataclass(frozen=True, slots=True)
 class FlatPlane(Object):
     def create(self):
         msg = 'create flatplane ' + self.name
@@ -154,6 +159,7 @@ class FlatPlane(Object):
         return 'Flat plane\'s normal set' in self.robot.send_message(msg)
 
 
+@dataclass(frozen=True, slots=True)
 class Cylinder(Object):
     def create(self):
         msg = 'create cylinder ' + self.name
@@ -181,6 +187,7 @@ class Cylinder(Object):
         return 'Cylinder\'s length set' in self.robot.send_message(msg)
 
 
+@dataclass(frozen=True, slots=True)
 class Torus(Object):
     def create(self):
         msg = 'create torus ' + self.name

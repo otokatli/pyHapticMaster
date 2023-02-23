@@ -1,7 +1,7 @@
 from .haptic_master import HapticMaster
 from dataclasses import dataclass
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class Base:
     name: str
     robot: HapticMaster

@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from .effect import Effect
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class Shaker(Effect):
     def create(self):
         msg = 'create shaker ' + self.name

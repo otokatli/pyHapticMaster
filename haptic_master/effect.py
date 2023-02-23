@@ -1,10 +1,13 @@
 from haptic_master.base import Base
+from dataclasses import dataclass
 
 
+@dataclass(frozen=True, slots=True)
 class Effect(Base):
     pass
 
-    
+
+@dataclass(frozen=True, slots=True)    
 class Spring(Effect):
     def create(self) -> bool:
         msg = 'create spring ' + self.name
@@ -72,6 +75,7 @@ class Spring(Effect):
         return 'Spring\'s damping global set' in self.robot.send_message(msg)
 
 
+@dataclass(frozen=True, slots=True)
 class Damper(Effect):
     def create(self) -> bool:
         msg = 'create damper ' + self.name
@@ -89,6 +93,7 @@ class Damper(Effect):
         return 'Damper\'s damp coefficient set' in self.robot.send_message(msg)
 
 
+@dataclass(frozen=True, slots=True)
 class BiasForce(Effect):
     def create(self) -> bool:
         msg = 'create biasforce ' + self.name
