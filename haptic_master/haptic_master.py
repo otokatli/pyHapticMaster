@@ -61,10 +61,7 @@ class HapticMaster:
     def set_coulombfriction(self, value: float) -> bool:
         msg = 'set coulombfriction ' + str(value)
 
-        if 'Coulomb friction set' in self.send_message(msg):
-            return True
-        else:
-            return False
+        return 'Coulomb friction set' in self.send_message(msg
 
     def get_measpos(self) -> list:
         msg = 'get measpos'
