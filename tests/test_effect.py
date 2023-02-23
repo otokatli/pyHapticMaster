@@ -37,7 +37,7 @@ class TestEffects(unittest.TestCase):
         Test the shaker effect
     
     '''
-    
+
     def test_spring(self):
         '''Testing the spring effect'''
 
