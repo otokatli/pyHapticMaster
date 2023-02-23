@@ -1,5 +1,5 @@
-from haptic_master.haptic_master import HapticMaster
 import unittest
+from haptic_master.haptic_master import HapticMaster
 
 
 IP = '192.168.0.25'
