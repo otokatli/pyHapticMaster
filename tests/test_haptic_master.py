@@ -83,6 +83,18 @@ class TestHapticMaster(unittest.TestCase):
 
         robot.disconnect()
 
+    def test_calibrate_force_sensor(self):
+        '''
+        Testing the force sensor calibration
+        '''
+        
+        # Open connection 
+        robot = HapticMaster(IP, PORT)
+        robot.connect()
+
+        self.assertTrue(robot.calibrateforcesensor())
+
+        robot.disconnect()
 
 if __name__ == '__main__':
     unittest.main()

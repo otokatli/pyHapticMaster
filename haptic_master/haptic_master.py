@@ -142,6 +142,9 @@ class HapticMaster:
 
         return self._string_to_list(self.send_message(msg))
     
+    def calibrateforcesensor(self) -> bool:
+        return 'Force sensor calibrated' in self.send_message('calibrateforcesensor')
+    
     def _haptic_master_message(self, msg):
         hm_msg = [0, 0, 0, 0, 0, 0, 0, 0]
         
