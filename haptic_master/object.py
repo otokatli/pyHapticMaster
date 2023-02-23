@@ -10,7 +10,7 @@ class Object(Base):
     def set_stiffness(self, value: float) -> bool:
         msg = 'set ' + self.name + ' stiffness ' + str(value)
 
-        return self.robot.send_message(msg)
+        return 'Shapes\'s stiffness set' in self.robot.send_message(msg)
 
     def get_dampfactor(self) -> float:
         msg = 'get ' + self.name + ' dampfactor'
@@ -20,7 +20,7 @@ class Object(Base):
     def set_dampfactor(self, value: float) -> bool:
         msg = 'set ' + self.name + ' dampfactor ' + str(value)
     
-        return self.robot.send_message(msg)
+        return 'Shape\'s damp factor set' in self.robot.send_message(msg)
 
     def get_no_pull(self) -> bool:
         msg = 'get ' + self.name + ' no_pull'
@@ -30,7 +30,7 @@ class Object(Base):
     def set_no_pull(self, value: bool) -> bool:
         msg = 'set ' + self.name + ' no_pull ' + str(value).lower()
 
-        return self.robot.send_message(msg)
+        return 'Shape\'s no pull set' in self.robot.send_message(msg)
 
     def get_tang_damping(self) -> float:
         msg = 'get ' + self.name + ' tang_damping'
@@ -40,7 +40,7 @@ class Object(Base):
     def set_tang_damping(self, value: float) -> bool:
         msg = 'set ' + self.name + ' tang_damping ' + str(value)
     
-        return self.robot.send_message(msg)
+        return 'Shape\'s tangential damping set' in self.robot.send_message(msg)
 
     def get_damping_forcemax(self) -> float:
         msg = 'get ' + self.name + ' damping_forcemax'
@@ -50,7 +50,7 @@ class Object(Base):
     def set_damping_forcemax(self, value: float) -> bool:
         msg = 'set ' + self.name + ' damping_forcemax ' + str(value)
     
-        return self.robot.send_message(msg)
+        return 'Shape\'s damping force max set' in self.robot.send_message(msg)
 
     def get_friction(self) -> float:
         msg = 'get ' + self.name + ' friction'
@@ -58,9 +58,9 @@ class Object(Base):
         return float(self.robot.send_message(msg))
     
     def set_friction(self, value: float) -> bool:
-        'set ' + self.name + ' friction ' + str(value)
+        msg = 'set ' + self.name + ' friction ' + str(value)
 
-        return self.robot.send_message(msg)
+        return 'Shape\'s friction mu set' in self.robot.send_message(msg)
 
     def get_ejection_velmax(self) -> float:
         msg = 'get ' + self.name + ' ejection_velmax'
@@ -70,7 +70,7 @@ class Object(Base):
     def set_ejection_velmax(self, value: float) -> bool:
         msg = 'set ' + self.name + ' ejection_velmax ' + str(value)
 
-        return self.robot.send_message(msg)
+        return 'Shape\'s ejection velocity max set' in self.robot.send_message(msg)
 
     def get_ejection_damping(self) -> float:
         msg = 'get ' + self.name + ' ejection_damping'
@@ -80,17 +80,17 @@ class Object(Base):
     def set_ejection_damping(self, value: float) -> bool:
         msg = 'set ' + self.name + ' ejection_damping ' + str(value)
    
-        return self.robot.send_message(msg)
+        return 'Shape\'s ejection velocity damping set' in self.robot.send_message(msg)
 
     def get_outward_forcemax(self) -> float:
-        msg = 'get ' + self.name + ' no_outward_forcemax'
+        msg = 'get ' + self.name + ' outward_forcemax'
 
         return float(self.robot.send_message(msg))
     
     def set_outward_forcemax(self, value: float) -> bool:
-        msg = 'set ' + self.name + ' no_outward_forcemax ' + str(value)
+        msg = 'set ' + self.name + ' outward_forcemax ' + str(value)
 
-        return self.robot.send_message(msg)
+        return 'Shape\'s outward force max set' in self.robot.send_message(msg)
 
     def get_powermax(self) -> float:
         msg = 'get ' + self.name + ' powermax'
@@ -100,17 +100,14 @@ class Object(Base):
     def set_powermax(self, value: float) -> bool:
         msg = 'set ' + self.name + ' powermax ' + str(value)
 
-        return self.robot.send_message(msg)
+        return 'Shape\'s power max set' in self.robot.send_message(msg)
 
 
 class Block(Object):
     def create(self):
         msg = 'create block ' + self.name
 
-        if f'Effect block with name {self.name} created' in self.robot.send_message(msg):
-            return True
-        else:
-            return False
+        return f'Effect block with name {self.name} created' in self.robot.send_message(msg)
 
     def get_size(self) -> list:
         msg = 'get ' + self.name + ' size'
@@ -120,20 +117,14 @@ class Block(Object):
     def set_size(self, value: list) -> bool:
         msg = 'set ' + self.name + ' size ' + str(value).replace(' ', '')
 
-        if 'Block\'s size set' in self.robot.send_message(msg):
-            return True
-        else:
-            return False
+        return 'Block\'s size set' in self.robot.send_message(msg)
 
 
 class Sphere(Object):
     def create(self):
         msg = 'create sphere ' + self.name
 
-        if f'Effect sphere with name {self.name} created' in self.robot.send_message(msg):
-            return True
-        else:
-            return False
+        return f'Effect sphere with name {self.name} created' in self.robot.send_message(msg)
 
     def get_radius(self) -> float:
         msg = 'get ' + self.name + ' radius'
@@ -143,20 +134,14 @@ class Sphere(Object):
     def set_radius(self, value: float) -> bool:
         msg = 'set ' + self.name + ' radius ' + str(value)
 
-        if 'Sphere\'s radius set' in self.robot.send_message(msg):
-            return True
-        else:
-            return False
+        return 'Sphere\'s radius set' in self.robot.send_message(msg)
 
 
 class FlatPlane(Object):
     def create(self):
         msg = 'create flatplane ' + self.name
         
-        if f'Effect flatplane with name {self.name} created' in self.robot.send_message(msg):
-            return True
-        else:
-            return False
+        return f'Effect flatplane with name {self.name} created' in self.robot.send_message(msg)
 
     def get_normal(self) -> list:
         msg = 'get ' + self.name + ' normal'
@@ -166,20 +151,14 @@ class FlatPlane(Object):
     def set_normal(self, value: list) -> bool:
         msg = 'set ' + self.name + ' normal ' + str(value).replace(' ', '')
 
-        if 'Flat plane\'s normal set' in self.robot.send_message(msg):
-            return True
-        else:
-            return False
+        return 'Flat plane\'s normal set' in self.robot.send_message(msg)
 
 
 class Cylinder(Object):
     def create(self):
         msg = 'create cylinder ' + self.name
 
-        if f'Effect cylinder with name {self.name} created' in self.robot.send_message(msg):
-            return True
-        else:
-            return False
+        return f'Effect cylinder with name {self.name} created' in self.robot.send_message(msg)
 
     def get_radius(self) -> float:
         msg = 'get ' + self.name + ' radius'
@@ -189,10 +168,7 @@ class Cylinder(Object):
     def set_radius(self, value: float) -> bool:
         msg = 'set ' + self.name + ' radius ' + str(value)
     
-        if 'Cylinder\'s radius set' in self.robot.send_message(msg):
-            return True
-        else:
-            return False
+        return 'Cylinder\'s radius set' in self.robot.send_message(msg)
 
     def get_length(self) -> float:
         msg = 'get ' + self.name + ' length'
@@ -202,37 +178,31 @@ class Cylinder(Object):
     def set_length(self, value: float) -> bool:
         msg = 'set ' + self.name + ' length ' + str(value)
     
-        if 'Cylinder\'s length set' in self.robot.send_message(msg):
-            return True
-        else:
-            return False
+        return 'Cylinder\'s length set' in self.robot.send_message(msg)
 
 
 class Torus(Object):
     def create(self):
         msg = 'create torus ' + self.name
 
-        if f'Effect torus with name {self.name} created' in self.robot.send_message(msg):
-            return True
-        else:
-            return False
+        return f'Effect torus with name {self.name} created' in self.robot.send_message(msg)
 
-    def get_ring_radius(self) -> float:
-        msg = 'get ' + self.name + ' ring_radius'
+    def get_ringradius(self) -> float:
+        msg = 'get ' + self.name + ' ringradius'
 
         return float(self.robot.send_message(msg))
 
-    def set_ring_radius(self, value: float) -> bool:
-        msg = 'set ' + self.name + ' ring_radius ' + str(value)
+    def set_ringradius(self, value: float) -> bool:
+        msg = 'set ' + self.name + ' ringradius ' + str(value)
 
-        return self.robot.send_message(msg)
+        return 'Torus\'s ring radius set' in self.robot.send_message(msg)
 
-    def get_tube_radius(self) -> float:
-        msg = 'get ' + self.name + ' tube_radius'
+    def get_tuberadius(self) -> float:
+        msg = 'get ' + self.name + ' tuberadius'
 
         return float(self.robot.send_message(msg))
     
-    def set_tube_radius(self, value: float) -> bool:
-        msg = 'set ' + self.name + ' tube_radius ' + str(value)
+    def set_tuberadius(self, value: float) -> bool:
+        msg = 'set ' + self.name + ' tuberadius ' + str(value)
 
-        return self.robot.send_message(msg)
+        return 'Torus\'s tube radius set' in self.robot.send_message(msg)
