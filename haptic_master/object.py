@@ -1,5 +1,5 @@
-from haptic_master.base import Base
 from dataclasses import dataclass
+from haptic_master.base import Base
 
 
 @dataclass(frozen=True, slots=True)
