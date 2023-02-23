@@ -9,10 +9,7 @@ class Spring(Effect):
     def create(self) -> bool:
         msg = 'create spring ' + self.name
 
-        if f'Effect spring with name {self.name} created' in self.robot.send_message(msg):
-            return True
-        else:
-            return False
+        return f'Effect spring with name {self.name} created' in self.robot.send_message(msg)
     
     def get_stiffness(self) -> float:
         msg = 'get ' + self.name + ' stiffness'
@@ -22,10 +19,7 @@ class Spring(Effect):
     def set_stiffness(self, value: float) -> bool:
         msg = 'set ' + self.name + ' stiffness ' + str(value)
 
-        if 'Spring\'s stiffness set' in self.robot.send_message(msg):
-            return True
-        else:
-            return False
+        return 'Spring\'s stiffness set' in self.robot.send_message(msg)
 
     def get_dampfactor(self) -> float:
         msg = 'get ' + self.name + ' dampfactor'
@@ -35,10 +29,7 @@ class Spring(Effect):
     def set_dampfactor(self, value: float) -> bool:
         msg = 'set ' + self.name + ' dampfactor ' + str(value)
 
-        if 'Spring\'s damp factor set' in self.robot.send_message(msg):
-            return True
-        else:
-            return False
+        return 'Spring\'s damp factor set' in self.robot.send_message(msg)
 
     def get_deadband(self) -> float:
         msg = 'get ' + self.name + ' deadband'
@@ -48,10 +39,7 @@ class Spring(Effect):
     def set_deadband(self, value: float) -> bool:
         msg = 'set ' + self.name + ' deadband ' + str(value)
 
-        if 'Spring\'s deadband set' in self.robot.send_message(msg):
-            return True
-        else:
-            return False
+        return 'Spring\'s deadband set' in self.robot.send_message(msg)
 
     def get_direction(self) -> list:
         msg = 'get ' + self.name + ' direction'
@@ -61,10 +49,7 @@ class Spring(Effect):
     def set_direction(self, value: list) -> bool:
         msg = 'set ' + self.name + ' direction ' + str(value).replace(' ', '')
 
-        if 'Spring\'s direction set' in self.robot.send_message(msg):
-            return True
-        else:
-            return False
+        return 'Spring\'s direction set' in self.robot.send_message(msg)
 
     def get_maxforce(self) -> float:
         msg = 'get ' + self.name + ' maxforce'
@@ -74,10 +59,7 @@ class Spring(Effect):
     def set_maxforce(self, value: float) -> bool:
         msg = 'set ' + self.name + ' maxforce ' + str(value)
 
-        if 'Spring\'s maximum force set' in self.robot.send_message(msg):
-            return True
-        else:
-            return False
+        return 'Spring\'s maximum force set' in self.robot.send_message(msg)
 
     def get_dampglobal(self) -> bool:
         msg = 'get ' + self.name + ' dampglobal'
@@ -87,20 +69,14 @@ class Spring(Effect):
     def set_dampglobal(self, value: bool) -> bool:
         msg = 'set ' + self.name + ' dampglobal ' + str(value).lower()
 
-        if 'Spring\'s damping global set' in self.robot.send_message(msg):
-            return True
-        else:
-            return False
+        return 'Spring\'s damping global set' in self.robot.send_message(msg)
 
 
 class Damper(Effect):
     def create(self) -> bool:
         msg = 'create damper ' + self.name
 
-        if f'Effect damper with name {self.name} created' in self.robot.send_message(msg):
-            return True
-        else:
-            return False
+        return f'Effect damper with name {self.name} created' in self.robot.send_message(msg)
         
     def get_dampcoef(self) -> list:
         msg = 'get ' + self.name + ' dampcoef'
@@ -110,20 +86,14 @@ class Damper(Effect):
     def set_dampcoef(self, value: list) -> bool:
         msg = 'set ' + self.name + ' dampcoef ' + str(value).replace(' ', '')
 
-        if 'Damper\'s damp coefficient set' in self.robot.send_message(msg):
-            return True
-        else:
-            return False
+        return 'Damper\'s damp coefficient set' in self.robot.send_message(msg)
 
 
 class BiasForce(Effect):
     def create(self) -> bool:
         msg = 'create biasforce ' + self.name
 
-        if f'Effect biasforce with name {self.name} created' in self.robot.send_message(msg):
-            return True
-        else:
-            return False
+        return f'Effect biasforce with name {self.name} created' in self.robot.send_message(msg)
         
     def get_force(self) -> list:
         msg = 'get ' + self.name + ' force'
@@ -133,8 +103,5 @@ class BiasForce(Effect):
     def set_force(self, value: list) -> bool:
         msg = 'set ' + self.name + ' force ' + str(value).replace(' ', '')
      
-        if 'Bias force\'s force set' in self.robot.send_message(msg):
-            return True
-        else:
-            return False
+        return 'Bias force\'s force set' in self.robot.send_message(msg)
     
