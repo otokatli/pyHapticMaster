@@ -1,76 +1,111 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
+from .effect import Effect
 
 
-@dataclass
-class Shaker:
-    name: str
-    frequency1: float = 0.0
-    frequency2: float = 0.0
-    direction: list = field(default_factory=lambda: [0.0, 0.0, 1.0])
-    posmax: float = 0.0
-    velmax: float = 0.0
-    accmax: float = 0.0
-    stiffness: float = 0.0
-    dampfactor: float = 0.0
-    deadband: float = 0.0
-    maxforce: float = 0.0
+@dataclass(frozen=True)
+class Shaker(Effect):
+    def create(self):
+        msg = 'create shaker ' + self.name
 
-    def get_frequency1_msg(self) -> str:
-        return 'get ' + self.name + ' frequency1'
+        return f'Effect shaker with name {self.name} created' in self.robot.send_message(msg)
     
-    def get_frequency2_msg(self) -> str:
-        return 'get ' + self.name + ' frequency2'
+
+    def get_frequency1(self) -> float:
+        msg =  'get ' + self.name + ' frequency1'
     
-    def get_direction_msg(self) -> str:
-        return 'get ' + self.name + ' direction'
+        return float(self.robot.send_message(msg))
+
+    def set_frequency1(self, value: float) -> bool:
+        msg =  'set ' + self.name + ' frequency1 ' + str(value)
+
+        return 'Shaker\'s frequency1 set' in self.robot.send_message(msg)
     
-    def get_posmax_msg(self) -> str:
-        return 'get ' + self.name + ' posmax'
+    def get_frequency2(self) -> float:
+        msg =  'get ' + self.name + ' frequency2'
     
-    def get_velmax_msg(self) -> str:
-        return 'get ' + self.name + ' velmax'
+        return float(self.robot.send_message(msg))
+
+    def set_frequency2(self, value: float) -> bool:
+        msg =  'set ' + self.name + ' frequency2 ' + str(value)
     
-    def get_accmax_msg(self) -> str:
-        return 'get ' + self.name + ' accmax'
+        return 'Shaker\'s frequency2 set' in self.robot.send_message(msg)
     
-    def get_stiffness_msg(self) -> str:
-        return 'get ' + self.name + ' stiffness'
+    def get_direction(self) -> list:
+        msg =  'get ' + self.name + ' direction'
     
-    def get_dampfactor_msg(self) -> str:
-        return 'get ' + self.name + ' dampfactor'
+        return self.robot._string_to_list(self.robot.send_message(msg))
+
+    def set_direction(self, value: list) -> bool:
+        msg =  'set ' + self.name + ' direction ' + str(value).replace(' ', '')
     
-    def get_deadband_msg(self) -> str:
-        return 'get ' + self.name + ' deadband'
+        return 'Shaker\'s direction set' in self.robot.send_message(msg)
     
-    def get_maxforce_msg(self) -> str:
-        return 'get ' + self.name + ' maxforce'
+    def get_posmax(self) -> float:
+        msg =  'get ' + self.name + ' posmax'
     
-    def set_frequency1_msg(self, value: float) -> str:
-        return 'set ' + self.name + ' frequency1 ' + str(value)
+        return float(self.robot.send_message(msg))
+
+    def set_posmax(self, value: float) -> bool:
+        msg =  'set ' + self.name + ' posmax ' + str(value)
     
-    def set_frequency2_msg(self, value: float) -> str:
-        return 'set ' + self.name + ' frequency2 ' + str(value)
+        return 'Shaker\'s maximum position set' in self.robot.send_message(msg)
     
-    def set_direction_msg(self, value: list) -> str:
-        return 'set ' + self.name + ' direction ' + str(value).replace(' ', '')
+    def get_velmax(self) -> float:
+        msg =  'get ' + self.name + ' velmax'
     
-    def set_posmax_msg(self, value: float) -> str:
-        return 'set ' + self.name + ' posmax ' + str(value)
+        return float(self.robot.send_message(msg))
+
+    def set_velmax(self, value: float) -> bool:
+        msg =  'set ' + self.name + ' velmax ' + str(value)
     
-    def set_velmax_msg(self, value: float) -> str:
-        return 'set ' + self.name + ' velmax ' + str(value)
+        return 'Shaker\'s maximum velocity set' in self.robot.send_message(msg)
     
-    def set_accmax_msg(self, value: float) -> str:
-        return 'set ' + self.name + ' accmax ' + str(value)
+    def get_accmax(self) -> float:
+        msg =  'get ' + self.name + ' accmax'
     
-    def set_stiffness_msg(self, value: float) -> str:
-        return 'set ' + self.name + ' stiffness ' + str(value)
+        return float(self.robot.send_message(msg))
+
+    def set_accmax(self, value: float) -> bool:
+        msg =  'set ' + self.name + ' accmax ' + str(value)
     
-    def set_dampfactor_msg(self, value: float) -> str:
-        return 'set ' + self.name + ' dampfactor ' + str(value)
+        return 'Shaker\'s maximum acceleration set' in self.robot.send_message(msg)
     
-    def set_deadband_msg(self, value: float) -> str:
-        return 'set ' + self.name + ' deadband ' + str(value)
+    def get_stiffness(self) -> float:
+        msg =  'get ' + self.name + ' stiffness'
     
-    def set_maxforce_msg(self, value: float) -> str:
-        return 'set ' + self.name + ' maxforce ' + str(value)
+        return float(self.robot.send_message(msg))
+
+    def set_stiffness(self, value: float) -> bool:
+        msg =  'set ' + self.name + ' stiffness ' + str(value)
+    
+        return 'Shaker\'s stiffness set' in self.robot.send_message(msg)
+    
+    def get_dampfactor(self) -> float:
+        msg =  'get ' + self.name + ' dampfactor'
+    
+        return float(self.robot.send_message(msg))
+
+    def set_dampfactor(self, value: float) -> bool:
+        msg =  'set ' + self.name + ' dampfactor ' + str(value)
+    
+        return 'Shaker\'s damp factor set' in self.robot.send_message(msg)
+    
+    def get_deadband(self) -> float:
+        msg =  'get ' + self.name + ' deadband'
+    
+        return float(self.robot.send_message(msg))
+
+    def set_deadband(self, value: float) -> bool:
+        msg =  'set ' + self.name + ' deadband ' + str(value)
+    
+        return 'Shaker\'s deadband set' in self.robot.send_message(msg)
+    
+    def get_maxforce(self) -> float:
+        msg =  'get ' + self.name + ' maxforce'
+    
+        return float(self.robot.send_message(msg))
+
+    def set_maxforce(self, value: float) -> bool:
+        msg =  'set ' + self.name + ' maxforce ' + str(value)
+
+        return 'Shaker\'s maximum force set' in self.robot.send_message(msg)
