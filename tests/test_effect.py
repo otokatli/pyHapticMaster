@@ -1,6 +1,6 @@
+import unittest
 from haptic_master.haptic_master import HapticMaster
 from haptic_master.effect import BiasForce, Damper, Spring
-import unittest
 
 
 IP = '192.168.0.25'
