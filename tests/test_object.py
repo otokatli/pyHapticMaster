@@ -7,7 +7,7 @@ IP = '192.168.0.25'
 PORT = 7654
 
 
-class TestHapticMaster(unittest.TestCase):
+class TestObjects(unittest.TestCase):
     def test_block(self):
         # Open connection
         robot = HapticMaster(IP, PORT)

@@ -7,7 +7,7 @@ IP = '192.168.0.25'
 PORT = 7654
 
 
-class TestHapticMaster(unittest.TestCase):
+class TestEffects(unittest.TestCase):
     def test_spring(self):
         '''
         Testing the spring effect
