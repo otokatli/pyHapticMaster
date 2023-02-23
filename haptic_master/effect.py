@@ -5,7 +5,6 @@ from haptic_master.base import Base
 @dataclass(frozen=True, slots=True)
 class Effect(Base):
     '''Generic class for effects'''
-    pass
 
 
 @dataclass(frozen=True, slots=True)
