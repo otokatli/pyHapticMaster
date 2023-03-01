@@ -56,6 +56,7 @@ set_maxforce(value)
 '''
 
 from dataclasses import dataclass
+import logging
 from haptic_master.base import Base
 
 
@@ -110,7 +111,11 @@ class Spring(Effect):
 
         msg = 'create spring ' + self.name
 
-        return f'Effect spring with name {self.name} created' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return f'Effect spring with name {self.name} created' in response
 
     def get_stiffness(self) -> float:
         '''Get the spring coefficient from the robot
@@ -140,7 +145,11 @@ class Spring(Effect):
 
         msg = 'set ' + self.name + ' stiffness ' + str(value)
 
-        return 'Spring\'s stiffness set' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return 'Spring\'s stiffness set' in response
 
     def get_dampfactor(self) -> float:
         '''Get the damping factor of the spring from the robot
@@ -170,7 +179,11 @@ class Spring(Effect):
 
         msg = 'set ' + self.name + ' dampfactor ' + str(value)
 
-        return 'Spring\'s damp factor set' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return 'Spring\'s damp factor set' in response
 
     def get_deadband(self) -> float:
         '''Get the deadband length of the spring from the robot
@@ -200,7 +213,11 @@ class Spring(Effect):
 
         msg = 'set ' + self.name + ' deadband ' + str(value)
 
-        return 'Spring\'s deadband set' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return 'Spring\'s deadband set' in response
 
     def get_direction(self) -> list:
         '''Get the direction of the spring from the robot
@@ -230,7 +247,11 @@ class Spring(Effect):
 
         msg = 'set ' + self.name + ' direction ' + str(value).replace(' ', '')
 
-        return 'Spring\'s direction set' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return 'Spring\'s direction set' in response
 
     def get_maxforce(self) -> float:
         '''Get the maximum force of the spring from the robot
@@ -260,7 +281,11 @@ class Spring(Effect):
 
         msg = 'set ' + self.name + ' maxforce ' + str(value)
 
-        return 'Spring\'s maximum force set' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return 'Spring\'s maximum force set' in response
 
     def get_dampglobal(self) -> bool:
         '''Get the global damping status of the spring from the robot
@@ -290,7 +315,11 @@ class Spring(Effect):
 
         msg = 'set ' + self.name + ' dampglobal ' + str(value).lower()
 
-        return 'Spring\'s damping global set' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return 'Spring\'s damping global set' in response
 
 
 @dataclass(frozen=True, slots=True)
@@ -319,7 +348,11 @@ class Damper(Effect):
 
         msg = 'create damper ' + self.name
 
-        return f'Effect damper with name {self.name} created' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return f'Effect damper with name {self.name} created' in response
 
     def get_dampcoef(self) -> list:
         '''Get the damping coefficients of the damper from the robot
@@ -349,7 +382,11 @@ class Damper(Effect):
 
         msg = 'set ' + self.name + ' dampcoef ' + str(value).replace(' ', '')
 
-        return 'Damper\'s damp coefficient set' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return 'Damper\'s damp coefficient set' in response
 
 
 @dataclass(frozen=True, slots=True)
@@ -378,7 +415,11 @@ class BiasForce(Effect):
 
         msg = 'create biasforce ' + self.name
 
-        return f'Effect biasforce with name {self.name} created' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return f'Effect biasforce with name {self.name} created' in response
 
     def get_force(self) -> list:
         '''Get the force vector of the bias force from the robot
@@ -408,7 +449,11 @@ class BiasForce(Effect):
 
         msg = 'set ' + self.name + ' force ' + str(value).replace(' ', '')
 
-        return 'Bias force\'s force set' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return 'Bias force\'s force set' in response
 
 @dataclass(frozen=True, slots=True)
 class Shaker(Effect):
@@ -472,7 +517,11 @@ class Shaker(Effect):
 
         msg = 'create shaker ' + self.name
 
-        return f'Effect shaker with name {self.name} created' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return f'Effect shaker with name {self.name} created' in response
 
 
     def get_frequency1(self) -> float:
@@ -503,7 +552,11 @@ class Shaker(Effect):
 
         msg =  'set ' + self.name + ' frequency1 ' + str(value)
 
-        return 'Shaker\'s frequency1 set' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return 'Shaker\'s frequency1 set' in response
 
     def get_frequency2(self) -> float:
         '''Get the ending frequency of the shaker from the robot
@@ -533,7 +586,11 @@ class Shaker(Effect):
 
         msg =  'set ' + self.name + ' frequency2 ' + str(value)
 
-        return 'Shaker\'s frequency2 set' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return 'Shaker\'s frequency2 set' in response
 
     def get_direction(self) -> list:
         '''Get the oscillation direction of the shaker from the robot
@@ -563,7 +620,11 @@ class Shaker(Effect):
 
         msg =  'set ' + self.name + ' direction ' + str(value).replace(' ', '')
 
-        return 'Shaker\'s direction set' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return 'Shaker\'s direction set' in response
 
     def get_posmax(self) -> float:
         '''Get the maximum oscillation amplitude of the shaker from the robot
@@ -593,7 +654,11 @@ class Shaker(Effect):
 
         msg =  'set ' + self.name + ' posmax ' + str(value)
 
-        return 'Shaker\'s maximum position set' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return 'Shaker\'s maximum position set' in response
 
     def get_velmax(self) -> float:
         '''Get the maximum oscillation velocity of the shaker from the robot
@@ -623,7 +688,11 @@ class Shaker(Effect):
 
         msg =  'set ' + self.name + ' velmax ' + str(value)
 
-        return 'Shaker\'s maximum velocity set' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return 'Shaker\'s maximum velocity set' in response
 
     def get_accmax(self) -> float:
         '''Get the maximum oscillation acceleration of the shaker from the robot
@@ -653,7 +722,11 @@ class Shaker(Effect):
 
         msg =  'set ' + self.name + ' accmax ' + str(value)
 
-        return 'Shaker\'s maximum acceleration set' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return 'Shaker\'s maximum acceleration set' in response
 
     def get_stiffness(self) -> float:
         '''Get the stabilising spring stiffness of the shaker from the robot
@@ -683,7 +756,11 @@ class Shaker(Effect):
 
         msg =  'set ' + self.name + ' stiffness ' + str(value)
 
-        return 'Shaker\'s stiffness set' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return 'Shaker\'s stiffness set' in response
 
     def get_dampfactor(self) -> float:
         '''Get the stabilising damping factor of the shaker from the robot
@@ -713,7 +790,11 @@ class Shaker(Effect):
 
         msg =  'set ' + self.name + ' dampfactor ' + str(value)
 
-        return 'Shaker\'s damp factor set' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return 'Shaker\'s damp factor set' in response
 
     def get_deadband(self) -> float:
         '''Get the stabilising spring deadband length of the shaker from the robot
@@ -743,7 +824,11 @@ class Shaker(Effect):
 
         msg =  'set ' + self.name + ' deadband ' + str(value)
 
-        return 'Shaker\'s deadband set' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return 'Shaker\'s deadband set' in response
 
     def get_maxforce(self) -> float:
         '''Get the stabilising spring maximum force of the shaker from the robot
@@ -773,4 +858,8 @@ class Shaker(Effect):
 
         msg =  'set ' + self.name + ' maxforce ' + str(value)
 
-        return 'Shaker\'s maximum force set' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return 'Shaker\'s maximum force set' in response

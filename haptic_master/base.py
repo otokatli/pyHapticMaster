@@ -21,7 +21,9 @@ robot
 '''
 
 from dataclasses import dataclass
+import logging
 from .haptic_master import HapticMaster
+
 
 @dataclass(frozen=True, slots=True)
 class Base:
@@ -78,7 +80,11 @@ class Base:
         '''
         msg = 'set ' + self.name + ' pos ' + str(value).replace(' ', '')
 
-        return 'Effect\'s position set' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return 'Effect\'s position set' in response
 
     def get_vel(self) -> list:
         '''Get the velocity of the effect/object from the robot
@@ -106,7 +112,11 @@ class Base:
         '''
         msg = 'set ' + self.name + ' vel ' + str(value).replace(' ', '')
 
-        return 'Effect\'s velocity set' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return 'Effect\'s velocity set' in response
 
     def get_att(self) -> list:
         '''Get the attitude (orientation) of the effect/object from the robot
@@ -135,7 +145,11 @@ class Base:
         '''
         msg = 'set ' + self.name + ' att ' + str(value).replace(' ', '')
 
-        return 'Effect\'s attitude set' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return 'Effect\'s attitude set' in response
 
     def set_enable(self) -> bool:
         '''Enable the effect/object
@@ -147,7 +161,11 @@ class Base:
         '''
         msg = 'set ' + self.name + ' enable'
 
-        return 'enabled' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return 'enabled' in response
 
     def set_disable(self) -> bool:
         '''Disable the effect/object
@@ -159,7 +177,11 @@ class Base:
         '''
         msg = 'set ' + self.name + ' disable'
 
-        return 'disabled' in self.robot.send_message(msg)
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return 'disabled' in response
 
     def get_enabled(self) -> bool:
         '''Get the enable/disable status of an effect/object from the robot
@@ -181,4 +203,11 @@ class Base:
         bool: True if successful, False otherwise
 
         '''
-        return 'Removed' in self.robot.send_message(f'remove {self.name}')
+
+        msg = f'remove {self.name}'
+
+        response = self.robot.send_message(msg)
+
+        logging.info(response)
+
+        return 'Removed' in response
