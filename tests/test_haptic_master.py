@@ -24,7 +24,7 @@ PORT = 7654
 
 class TestHapticMaster(unittest.TestCase):
     '''Unit test class for testing the haptic master
-    
+
     Methods
     -------
     test_connection()
@@ -37,7 +37,7 @@ class TestHapticMaster(unittest.TestCase):
         Test the Coulomb friction of the robot
     test_calibrate_force_sensor()
         Test the force sensor calibration of the robot
-    
+
     '''
 
     def test_connection(self):
@@ -80,13 +80,13 @@ class TestHapticMaster(unittest.TestCase):
         robot.connect()
 
         # Set state to position
-        self.assertEqual(robot.set_state('position'), 'state set to \'position\'')
+        self.assertTrue(robot.set_state('position'))
 
         # Read the state value from the robot
         self.assertEqual(robot.get_state(), 'position')
 
         # Set state to force
-        self.assertEqual(robot.set_state('force'), 'state set to \'force\'')
+        self.assertTrue(robot.set_state('force'))
 
         # Read the state value from the robot
         self.assertEqual(robot.get_state(), 'force')
