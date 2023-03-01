@@ -156,7 +156,7 @@ class HapticMaster:
 
         '''
 
-        msg = 'set inertia2 ' + str(value)
+        msg = 'set inertia ' + str(value)
 
         response = self.send_message(msg)
 
