@@ -156,13 +156,13 @@ class HapticMaster:
 
         '''
 
-        msg = 'set inertia ' + str(value)
+        msg = 'set inertia2 ' + str(value)
 
         response = self.send_message(msg)
 
         logging.info(response)
 
-        return True
+        return 'Inertia set' in response
 
     def get_state(self) -> str:
         '''Get the current state of the robot
