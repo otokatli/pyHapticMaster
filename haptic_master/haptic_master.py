@@ -192,7 +192,12 @@ class HapticMaster:
 
         if device_state in ['init', 'off', 'force', 'position', 'home']:
             msg = 'set state ' + device_state
-            return self.send_message(msg)
+
+            response = self.send_message(msg)
+
+            logging.info(response)
+
+            return f'state set to \'{device_state}\'' in response
         raise ValueError('Wrong state name is given')
 
     def get_coulombfriction(self) -> float:
