@@ -228,7 +228,11 @@ class HapticMaster:
 
         msg = 'set coulombfriction ' + str(value)
 
-        return 'Coulomb friction set' in self.send_message(msg)
+        response = self.send_message(msg)
+
+        logging.info(response)
+
+        return 'Coulomb friction set' in response
 
     def get_measpos(self) -> list:
         '''Get the measured position of the robot end-effector
@@ -438,7 +442,13 @@ class HapticMaster:
 
         '''
 
-        return 'Force sensor calibrated' in self.send_message('calibrateforcesensor')
+        msg = 'calibrateforcesensor'
+
+        response = self.send_message(msg)
+
+        logging.info(response)
+
+        return 'Force sensor calibrated' in response
 
     def _haptic_master_message(self, msg):
         '''Create the serialised message accepted by the HapticMaster
