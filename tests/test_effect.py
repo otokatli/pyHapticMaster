@@ -24,7 +24,7 @@ PORT = 7654
 
 class TestEffects(unittest.TestCase):
     '''Unit test class for testing the haptic effects
-    
+
     Methods
     -------
     test_spring()
@@ -35,7 +35,7 @@ class TestEffects(unittest.TestCase):
         Test the bias force effect
     test_shaker()
         Test the shaker effect
-    
+
     '''
 
     def test_spring(self):
