@@ -1,4 +1,4 @@
-'''Create a base for effects and objects
+'''Base class for the effects and the objects
 
 Classes
 -------
@@ -22,6 +22,8 @@ robot
 
 from dataclasses import dataclass
 import logging
+import numpy as np
+import numpy.typing as npt
 from .haptic_master import HapticMaster
 
 
@@ -54,7 +56,7 @@ class Base:
     name: str
     robot: HapticMaster
 
-    def get_pos(self) -> list:
+    def get_pos(self) -> npt.NDArray:
         '''Get the position of the effect/object from the robot
 
         Returns
@@ -62,23 +64,28 @@ class Base:
         bool: True if successful, False otherwise
 
         '''
-        msg = 'get ' + self.name + ' pos'
 
-        return self.robot.string_to_list(self.robot.send_message(msg))
+        msg = f'get {self.name} pos'
 
-    def set_pos(self, value: list) -> bool:
+        return self.robot.string_to_array(self.robot.send_message(msg))
+
+    def set_pos(self, value: npt.NDArray) -> bool:
         '''Set the position of the effect/object on the robot
 
         Parameters
         ----------
-        value (list): The position of the effect/object to be set
+        value (npt.NDArray): The position of the effect/object to be set
 
         Returns
         -------
         bool: True if successful, False otherwise
 
         '''
-        msg = 'set ' + self.name + ' pos ' + str(value).replace(' ', '')
+
+        if type(value) == np.ndarray:
+            msg = f'set {self.name} direction [{",".join(str(v) for v in value)}]'
+        else:
+            msg = f'set {self.name} direction {str(value).replace(" ", "")}'
 
         response = self.robot.send_message(msg)
 
@@ -86,7 +93,7 @@ class Base:
 
         return 'Effect\'s position set' in response
 
-    def get_vel(self) -> list:
+    def get_vel(self) -> npt.NDArray:
         '''Get the velocity of the effect/object from the robot
 
         Returns
@@ -94,23 +101,27 @@ class Base:
         bool: True if successful, False otherwise
 
         '''
-        msg = 'get ' + self.name + ' vel'
+        msg = f'get {self.name} vel'
 
-        return self.robot.string_to_list(self.robot.send_message(msg))
+        return self.robot.string_to_array(self.robot.send_message(msg))
 
-    def set_vel(self, value: list) -> bool:
+    def set_vel(self, value: npt.NDArray) -> bool:
         '''Set the velocity of the effect/object on the robot
 
         Parameters
         ----------
-        value (list): The velocity of the effect/object to be set
+        value (npt.NDArray): The velocity of the effect/object to be set
 
         Returns
         -------
         bool: True if successful, False otherwise
 
         '''
-        msg = 'set ' + self.name + ' vel ' + str(value).replace(' ', '')
+
+        if type(value) == np.ndarray:
+            msg = f'set {self.name} direction [{",".join(str(v) for v in value)}]'
+        else:
+            msg = f'set {self.name} direction {str(value).replace(" ", "")}'
 
         response = self.robot.send_message(msg)
 
@@ -118,7 +129,7 @@ class Base:
 
         return 'Effect\'s velocity set' in response
 
-    def get_att(self) -> list:
+    def get_att(self) -> npt.NDArray:
         '''Get the attitude (orientation) of the effect/object from the robot
 
         Returns
@@ -126,16 +137,16 @@ class Base:
         bool: True if successful, False otherwise
 
         '''
-        msg = 'get ' + self.name + ' att'
+        msg = f'get {self.name} att'
 
-        return self.robot.string_to_list(self.robot.send_message(msg))
+        return self.robot.string_to_array(self.robot.send_message(msg))
 
-    def set_att(self, value: list) -> bool:
+    def set_att(self, value: npt.NDArray) -> bool:
         '''Set the attitude (orientation) of the effect/object on the robot
 
         Parameters
         ----------
-        value (list): The orientation of the effect/object to be set as
+        value (npt.NDArray): The orientation of the effect/object to be set as
                       a unit quaternion
 
         Returns
@@ -143,7 +154,11 @@ class Base:
         bool: True if successful, False otherwise
 
         '''
-        msg = 'set ' + self.name + ' att ' + str(value).replace(' ', '')
+
+        if type(value) == np.ndarray:
+            msg = f'set {self.name} direction [{",".join(str(v) for v in value)}]'
+        else:
+            msg = f'set {self.name} direction {str(value).replace(" ", "")}'
 
         response = self.robot.send_message(msg)
 
@@ -159,7 +174,7 @@ class Base:
         bool: True if successful, False otherwise
 
         '''
-        msg = 'set ' + self.name + ' enable'
+        msg = f'set {self.name} enable'
 
         response = self.robot.send_message(msg)
 
@@ -175,7 +190,7 @@ class Base:
         bool: True if successful, False otherwise
 
         '''
-        msg = 'set ' + self.name + ' disable'
+        msg = f'set {self.name} disable'
 
         response = self.robot.send_message(msg)
 
@@ -191,7 +206,7 @@ class Base:
         bool: True if successful, False otherwise
 
         '''
-        msg = 'get ' + self.name + ' enabled'
+        msg = f'get {self.name} enabled'
 
         return self.robot.string_to_bool(self.robot.send_message(msg))
 

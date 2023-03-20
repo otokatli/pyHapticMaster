@@ -41,6 +41,7 @@ set_size(value)
 from dataclasses import dataclass
 import logging
 from haptic_master.base import Base
+import numpy.typing as npt
 
 
 @dataclass(frozen=True, slots=True)
@@ -101,7 +102,7 @@ class Object(Base):
 
         '''
 
-        msg = 'get ' + self.name + ' stiffness'
+        msg = f'get {self.name} stiffness'
 
         return float(self.robot.send_message(msg))
 
@@ -118,7 +119,7 @@ class Object(Base):
 
         '''
 
-        msg = 'set ' + self.name + ' stiffness ' + str(value)
+        msg = f'set {self.name} stiffness {value}'
 
         response = self.robot.send_message(msg)
 
@@ -135,7 +136,7 @@ class Object(Base):
 
         '''
 
-        msg = 'get ' + self.name + ' dampfactor'
+        msg = f'get {self.name} dampfactor'
 
         return float(self.robot.send_message(msg))
 
@@ -152,7 +153,7 @@ class Object(Base):
 
         '''
 
-        msg = 'set ' + self.name + ' dampfactor ' + str(value)
+        msg = f'set {self.name} dampfactor {value}'
 
         response = self.robot.send_message(msg)
 
@@ -169,7 +170,7 @@ class Object(Base):
 
         '''
 
-        msg = 'get ' + self.name + ' no_pull'
+        msg = f'get {self.name} no_pull'
 
         return self.robot.string_to_bool(self.robot.send_message(msg))
 
@@ -186,7 +187,7 @@ class Object(Base):
 
         '''
 
-        msg = 'set ' + self.name + ' no_pull ' + str(value).lower()
+        msg = f'set {self.name} no_pull {str(value).lower()}'
 
         response = self.robot.send_message(msg)
 
@@ -203,7 +204,7 @@ class Object(Base):
 
         '''
 
-        msg = 'get ' + self.name + ' tang_damping'
+        msg = f'get {self.name} tang_damping'
 
         return float(self.robot.send_message(msg))
 
@@ -220,7 +221,7 @@ class Object(Base):
 
         '''
 
-        msg = 'set ' + self.name + ' tang_damping ' + str(value)
+        msg = f'set {self.name} tang_damping {value}'
 
         response = self.robot.send_message(msg)
 
@@ -237,7 +238,7 @@ class Object(Base):
 
         '''
 
-        msg = 'get ' + self.name + ' damping_forcemax'
+        msg = f'get {self.name} damping_forcemax'
 
         return float(self.robot.send_message(msg))
 
@@ -254,7 +255,7 @@ class Object(Base):
 
         '''
 
-        msg = 'set ' + self.name + ' damping_forcemax ' + str(value)
+        msg = f'set {self.name} damping_forcemax {value}'
 
         response = self.robot.send_message(msg)
 
@@ -271,7 +272,7 @@ class Object(Base):
 
         '''
 
-        msg = 'get ' + self.name + ' friction'
+        msg = f'get {self.name} friction'
 
         return float(self.robot.send_message(msg))
 
@@ -288,7 +289,7 @@ class Object(Base):
 
         '''
 
-        msg = 'set ' + self.name + ' friction ' + str(value)
+        msg = f'set {self.name} friction {value}'
 
         response = self.robot.send_message(msg)
 
@@ -305,7 +306,7 @@ class Object(Base):
 
         '''
 
-        msg = 'get ' + self.name + ' ejection_velmax'
+        msg = f'get {self.name} ejection_velmax'
 
         return float(self.robot.send_message(msg))
 
@@ -322,7 +323,7 @@ class Object(Base):
 
         '''
 
-        msg = 'set ' + self.name + ' ejection_velmax ' + str(value)
+        msg = f'set {self.name} ejection_velmax {value}'
 
         response = self.robot.send_message(msg)
 
@@ -339,7 +340,7 @@ class Object(Base):
 
         '''
 
-        msg = 'get ' + self.name + ' ejection_damping'
+        msg = f'get {self.name} ejection_damping'
 
         return float(self.robot.send_message(msg))
 
@@ -356,7 +357,7 @@ class Object(Base):
 
         '''
 
-        msg = 'set ' + self.name + ' ejection_damping ' + str(value)
+        msg = f'set {self.name} ejection_damping {value}'
 
         response = self.robot.send_message(msg)
 
@@ -373,7 +374,7 @@ class Object(Base):
 
         '''
 
-        msg = 'get ' + self.name + ' outward_forcemax'
+        msg = f'get {self.name} outward_forcemax'
 
         return float(self.robot.send_message(msg))
 
@@ -390,7 +391,7 @@ class Object(Base):
 
         '''
 
-        msg = 'set ' + self.name + ' outward_forcemax ' + str(value)
+        msg = f'set {self.name} outward_forcemax {value}'
 
         response = self.robot.send_message(msg)
 
@@ -407,7 +408,7 @@ class Object(Base):
 
         '''
 
-        msg = 'get ' + self.name + ' powermax'
+        msg = f'get {self.name} powermax'
 
         return float(self.robot.send_message(msg))
 
@@ -424,7 +425,7 @@ class Object(Base):
 
         '''
 
-        msg = 'set ' + self.name + ' powermax ' + str(value)
+        msg = f'set {self.name} powermax {value}'
 
         response = self.robot.send_message(msg)
 
@@ -448,7 +449,7 @@ class Block(Object):
 
     '''
 
-    def create(self):
+    def create(self) -> bool:
         '''Create a block object on the robot
 
         Returns
@@ -457,7 +458,7 @@ class Block(Object):
 
         '''
 
-        msg = 'create block ' + self.name
+        msg = f'create block {self.name}'
 
         response = self.robot.send_message(msg)
 
@@ -465,20 +466,20 @@ class Block(Object):
 
         return f'Effect block with name {self.name} created' in response
 
-    def get_size(self) -> list:
+    def get_size(self) -> npt.NDArray:
         '''Get the dimensions of the block from the robot
 
         Returns
         -------
-        list: Size vector [m]
+        npt.NDArray: Size vector [m]
 
         '''
 
-        msg = 'get ' + self.name + ' size'
+        msg = f'get {self.name} size'
 
-        return self.robot.string_to_list(self.robot.send_message(msg))
+        return self.robot.string_to_array(self.robot.send_message(msg))
 
-    def set_size(self, value: list) -> bool:
+    def set_size(self, value: npt.NDArray) -> bool:
         '''Set the stiffness of the object on the robot
 
         Parameters
@@ -491,7 +492,7 @@ class Block(Object):
 
         '''
 
-        msg = 'set ' + self.name + ' size ' + str(value).replace(' ', '')
+        msg = f'set {self.name} size {str(value).replace(' ', '')}'
 
         response = self.robot.send_message(msg)
 
@@ -515,7 +516,7 @@ class Sphere(Object):
 
     '''
 
-    def create(self):
+    def create(self) -> bool:
         '''Create a sphere object on the robot
 
         Returns
@@ -524,7 +525,7 @@ class Sphere(Object):
 
         '''
 
-        msg = 'create sphere ' + self.name
+        msg = f'create sphere {self.name}'
 
         response = self.robot.send_message(msg)
 
@@ -541,7 +542,7 @@ class Sphere(Object):
 
         '''
 
-        msg = 'get ' + self.name + ' radius'
+        msg = f'get {self.name} radius'
 
         return float(self.robot.send_message(msg))
 
@@ -558,7 +559,7 @@ class Sphere(Object):
 
         '''
 
-        msg = 'set ' + self.name + ' radius ' + str(value)
+        msg = f'set {self.name} radius {value}'
 
         response = self.robot.send_message(msg)
 
@@ -582,7 +583,7 @@ class FlatPlane(Object):
 
     '''
 
-    def create(self):
+    def create(self) -> bool:
         '''Create a flat plane object on the robot
 
         Returns
@@ -591,7 +592,7 @@ class FlatPlane(Object):
 
         '''
 
-        msg = 'create flatplane ' + self.name
+        msg = f'create flatplane {self.name}'
 
         response = self.robot.send_message(msg)
 
@@ -599,25 +600,25 @@ class FlatPlane(Object):
 
         return f'Effect flatplane with name {self.name} created' in response
 
-    def get_normal(self) -> list:
+    def get_normal(self) -> npt.NDArray:
         '''Get the normal of the flat surface from the robot
 
         Returns
         -------
-        list: Unit plane normal vector [non-dimensional]
+        npt.NDArray: Unit plane normal vector [non-dimensional]
 
         '''
 
-        msg = 'get ' + self.name + ' normal'
+        msg = f'get {self.name} normal'
 
-        return self.robot.string_to_list(self.robot.send_message(msg))
+        return self.robot.string_to_array(self.robot.send_message(msg))
 
-    def set_normal(self, value: list) -> bool:
+    def set_normal(self, value: npt.NDArray) -> bool:
         '''Set the stiffness of the object on the robot
 
         Parameters
         ----------
-        value (float): Stiffness of the object [N/m]
+        value (npt.NDArray): Normal of the plane
 
         Returns
         -------
@@ -625,7 +626,7 @@ class FlatPlane(Object):
 
         '''
 
-        msg = 'set ' + self.name + ' normal ' + str(value).replace(' ', '')
+        msg = f'set {self.name} normal {str(value).replace(' ', '')}'
 
         response = self.robot.send_message(msg)
 
@@ -653,7 +654,7 @@ class Cylinder(Object):
 
     '''
 
-    def create(self):
+    def create(self) -> bool:
         '''Create a cylinder object on the robot
 
         Returns
@@ -662,7 +663,7 @@ class Cylinder(Object):
 
         '''
 
-        msg = 'create cylinder ' + self.name
+        msg = f'create cylinder {self.name}'
 
         response = self.robot.send_message(msg)
 
@@ -679,7 +680,7 @@ class Cylinder(Object):
 
         '''
 
-        msg = 'get ' + self.name + ' radius'
+        msg = f'get {self.name} radius'
 
         return float(self.robot.send_message(msg))
 
@@ -696,7 +697,7 @@ class Cylinder(Object):
 
         '''
 
-        msg = 'set ' + self.name + ' radius ' + str(value)
+        msg = f'set {self.name} radius {value}'
 
         response = self.robot.send_message(msg)
 
@@ -713,7 +714,7 @@ class Cylinder(Object):
 
         '''
 
-        msg = 'get ' + self.name + ' length'
+        msg = f'get {self.name} length'
 
         return float(self.robot.send_message(msg))
 
@@ -730,7 +731,7 @@ class Cylinder(Object):
 
         '''
 
-        msg = 'set ' + self.name + ' length ' + str(value)
+        msg = f'set {self.name} length {value}'
 
         response = self.robot.send_message(msg)
 
@@ -758,7 +759,7 @@ class Torus(Object):
 
     '''
 
-    def create(self):
+    def create(self) -> bool:
         '''Create a torus object on the robot
 
         Returns
@@ -767,7 +768,7 @@ class Torus(Object):
 
         '''
 
-        msg = 'create torus ' + self.name
+        msg = f'create torus {self.name}'
 
         response = self.robot.send_message(msg)
 
@@ -784,7 +785,7 @@ class Torus(Object):
 
         '''
 
-        msg = 'get ' + self.name + ' ringradius'
+        msg = f'get {self.name} ringradius'
 
         return float(self.robot.send_message(msg))
 
@@ -801,7 +802,7 @@ class Torus(Object):
 
         '''
 
-        msg = 'set ' + self.name + ' ringradius ' + str(value)
+        msg = f'set {self.name} ringradius {value}'
 
         response = self.robot.send_message(msg)
 
@@ -818,7 +819,7 @@ class Torus(Object):
 
         '''
 
-        msg = 'get ' + self.name + ' tuberadius'
+        msg = f'get {self.name} tuberadius'
 
         return float(self.robot.send_message(msg))
 
@@ -835,7 +836,7 @@ class Torus(Object):
 
         '''
 
-        msg = 'set ' + self.name + ' tuberadius ' + str(value)
+        msg = f'set {self.name} tuberadius {value}'
 
         response = self.robot.send_message(msg)
 

@@ -57,6 +57,8 @@ set_maxforce(value)
 
 from dataclasses import dataclass
 import logging
+import numpy as np
+import numpy.typing as npt
 from haptic_master.base import Base
 
 
@@ -109,7 +111,7 @@ class Spring(Effect):
 
         '''
 
-        msg = 'create spring ' + self.name
+        msg = f'create spring {self.name}'
 
         response = self.robot.send_message(msg)
 
@@ -126,7 +128,7 @@ class Spring(Effect):
 
         '''
 
-        msg = 'get ' + self.name + ' stiffness'
+        msg = f'get {self.name} stiffness'
 
         return float(self.robot.send_message(msg))
 
@@ -143,7 +145,7 @@ class Spring(Effect):
 
         '''
 
-        msg = 'set ' + self.name + ' stiffness ' + str(value)
+        msg = f'set {self.name} stiffness {value}'
 
         response = self.robot.send_message(msg)
 
@@ -160,7 +162,7 @@ class Spring(Effect):
 
         '''
 
-        msg = 'get ' + self.name + ' dampfactor'
+        msg = f'get {self.name} dampfactor'
 
         return float(self.robot.send_message(msg))
 
@@ -177,7 +179,7 @@ class Spring(Effect):
 
         '''
 
-        msg = 'set ' + self.name + ' dampfactor ' + str(value)
+        msg = f'set {self.name} dampfactor {value}'
 
         response = self.robot.send_message(msg)
 
@@ -194,7 +196,7 @@ class Spring(Effect):
 
         '''
 
-        msg = 'get ' + self.name + ' deadband'
+        msg = f'get {self.name} deadband'
 
         return float(self.robot.send_message(msg))
 
@@ -211,7 +213,7 @@ class Spring(Effect):
 
         '''
 
-        msg = 'set ' + self.name + ' deadband ' + str(value)
+        msg = f'set {self.name} deadband {value}'
 
         response = self.robot.send_message(msg)
 
@@ -219,25 +221,25 @@ class Spring(Effect):
 
         return 'Spring\'s deadband set' in response
 
-    def get_direction(self) -> list:
+    def get_direction(self) -> npt.NDArray:
         '''Get the direction of the spring from the robot
 
         Returns
         -------
-        list: Direction unit vector read from the robot [non-dimensional]
+        npt.NDArray: Direction unit vector read from the robot [non-dimensional]
 
         '''
 
-        msg = 'get ' + self.name + ' direction'
+        msg = f'get {self.name} direction'
 
-        return self.robot.string_to_list(self.robot.send_message(msg))
+        return self.robot.string_to_array(self.robot.send_message(msg))
 
-    def set_direction(self, value: list) -> bool:
+    def set_direction(self, value: npt.NDArray) -> bool:
         '''Set the direction of the spring on the robot
 
         Parameters
         ----------
-        value (list): Unit vector for the spring direction [non-dimensional]
+        value (npt.NDArray): Unit vector for the spring direction [non-dimensional]
 
         Returns
         -------
@@ -245,7 +247,10 @@ class Spring(Effect):
 
         '''
 
-        msg = 'set ' + self.name + ' direction ' + str(value).replace(' ', '')
+        if isinstance(value, np.ndarray):
+            msg = f'set {self.name} direction [{",".join(str(v) for v in value)}]'
+        else:
+            msg = f'set {self.name} direction {str(value).replace(" ", "")}'
 
         response = self.robot.send_message(msg)
 
@@ -262,7 +267,7 @@ class Spring(Effect):
 
         '''
 
-        msg = 'get ' + self.name + ' maxforce'
+        msg = f'get {self.name} maxforce'
 
         return float(self.robot.send_message(msg))
 
@@ -279,7 +284,7 @@ class Spring(Effect):
 
         '''
 
-        msg = 'set ' + self.name + ' maxforce ' + str(value)
+        msg = f'set {self.name} maxforce {value}'
 
         response = self.robot.send_message(msg)
 
@@ -296,7 +301,7 @@ class Spring(Effect):
 
         '''
 
-        msg = 'get ' + self.name + ' dampglobal'
+        msg = f'get {self.name} dampglobal'
 
         return self.robot.string_to_bool(self.robot.send_message(msg))
 
@@ -313,7 +318,7 @@ class Spring(Effect):
 
         '''
 
-        msg = 'set ' + self.name + ' dampglobal ' + str(value).lower()
+        msg = f'set {self.name} dampglobal {str(value).lower()}'
 
         response = self.robot.send_message(msg)
 
@@ -346,7 +351,7 @@ class Damper(Effect):
 
         '''
 
-        msg = 'create damper ' + self.name
+        msg = f'create damper {self.name}'
 
         response = self.robot.send_message(msg)
 
@@ -354,25 +359,25 @@ class Damper(Effect):
 
         return f'Effect damper with name {self.name} created' in response
 
-    def get_dampcoef(self) -> list:
+    def get_dampcoef(self) -> npt.NDArray:
         '''Get the damping coefficients of the damper from the robot
 
         Returns
         -------
-        list: Spatial damping coefficients of the damper [Ns/m]
+        npt.NDArray: Spatial damping coefficients of the damper [Ns/m]
 
         '''
 
-        msg = 'get ' + self.name + ' dampcoef'
+        msg = f'get {self.name} dampcoef'
 
-        return self.robot.string_to_list(self.robot.send_message(msg))
+        return self.robot.string_to_array(self.robot.send_message(msg))
 
-    def set_dampcoef(self, value: list) -> bool:
+    def set_dampcoef(self, value: npt.NDArray) -> bool:
         '''Set spatial damping coefficients of the damper on the robot
 
         Parameters
         ----------
-        value (list): Spatial damping coefficients [Ns/m]
+        value (npt.NDArray): Spatial damping coefficients [Ns/m]
 
         Returns
         -------
@@ -380,7 +385,10 @@ class Damper(Effect):
 
         '''
 
-        msg = 'set ' + self.name + ' dampcoef ' + str(value).replace(' ', '')
+        if isinstance(value, np.ndarray):
+            msg = f'set {self.name} direction [{",".join(str(v) for v in value)}]'
+        else:
+            msg = f'set {self.name} direction {str(value).replace(" ", "")}'
 
         response = self.robot.send_message(msg)
 
@@ -413,7 +421,7 @@ class BiasForce(Effect):
 
         '''
 
-        msg = 'create biasforce ' + self.name
+        msg = f'create biasforce {self.name}'
 
         response = self.robot.send_message(msg)
 
@@ -421,25 +429,25 @@ class BiasForce(Effect):
 
         return f'Effect biasforce with name {self.name} created' in response
 
-    def get_force(self) -> list:
+    def get_force(self) -> npt.NDArray:
         '''Get the force vector of the bias force from the robot
 
         Returns
         -------
-        list: Force vector [N]
+        npt.NDArray: Force vector [N]
 
         '''
 
-        msg = 'get ' + self.name + ' force'
+        msg = f'get {self.name} force'
 
-        return self.robot.string_to_list(self.robot.send_message(msg))
+        return self.robot.string_to_array(self.robot.send_message(msg))
 
-    def set_force(self, value: list) -> bool:
+    def set_force(self, value: npt.NDArray) -> bool:
         '''Set bias force value on the robot
 
         Parameters
         ----------
-        value (list): Bias force value [N]
+        value (npt.NDArray): Bias force value [N]
 
         Returns
         -------
@@ -447,7 +455,10 @@ class BiasForce(Effect):
 
         '''
 
-        msg = 'set ' + self.name + ' force ' + str(value).replace(' ', '')
+        if isinstance(value, np.ndarray):
+            msg = f'set {self.name} force [{",".join(str(v) for v in value)}]'
+        else:
+            msg = f'set {self.name} force {str(value).replace(" ", "")}'
 
         response = self.robot.send_message(msg)
 
@@ -506,7 +517,7 @@ class Shaker(Effect):
 
     '''
 
-    def create(self):
+    def create(self) -> bool:
         '''Create a shaker on the robot
 
         Returns
@@ -515,7 +526,7 @@ class Shaker(Effect):
 
         '''
 
-        msg = 'create shaker ' + self.name
+        msg = f'create shaker {self.name}'
 
         response = self.robot.send_message(msg)
 
@@ -533,7 +544,7 @@ class Shaker(Effect):
 
         '''
 
-        msg =  'get ' + self.name + ' frequency1'
+        msg =  f'get {self.name} frequency1'
 
         return float(self.robot.send_message(msg))
 
@@ -550,7 +561,7 @@ class Shaker(Effect):
 
         '''
 
-        msg =  'set ' + self.name + ' frequency1 ' + str(value)
+        msg =  f'set {self.name} frequency1 {value}'
 
         response = self.robot.send_message(msg)
 
@@ -567,7 +578,7 @@ class Shaker(Effect):
 
         '''
 
-        msg =  'get ' + self.name + ' frequency2'
+        msg =  f'get {self.name} frequency2'
 
         return float(self.robot.send_message(msg))
 
@@ -584,7 +595,7 @@ class Shaker(Effect):
 
         '''
 
-        msg =  'set ' + self.name + ' frequency2 ' + str(value)
+        msg =  f'set {self.name} frequency2 {value}'
 
         response = self.robot.send_message(msg)
 
@@ -592,25 +603,25 @@ class Shaker(Effect):
 
         return 'Shaker\'s frequency2 set' in response
 
-    def get_direction(self) -> list:
+    def get_direction(self) -> npt.NDArray:
         '''Get the oscillation direction of the shaker from the robot
 
         Returns
         -------
-        list: Direction unit vector [non-dimensional]
+        npt.NDArray: Direction unit vector [non-dimensional]
 
         '''
 
-        msg =  'get ' + self.name + ' direction'
+        msg =  f'get {self.name} direction'
 
-        return self.robot.string_to_list(self.robot.send_message(msg))
+        return self.robot.string_to_array(self.robot.send_message(msg))
 
-    def set_direction(self, value: list) -> bool:
+    def set_direction(self, value: npt.NDArray) -> bool:
         '''Set oscillation direction of the shaker on the robot
 
         Parameters
         ----------
-        value (list): Unit vector [non-dimensional]
+        value (npt.NDArray): Unit vector [non-dimensional]
 
         Returns
         -------
@@ -618,7 +629,10 @@ class Shaker(Effect):
 
         '''
 
-        msg =  'set ' + self.name + ' direction ' + str(value).replace(' ', '')
+        if isinstance(value, np.ndarray):
+            msg = f'set {self.name} direction [{",".join(str(v) for v in value)}]'
+        else:
+            msg = f'set {self.name} direction {str(value).replace(" ", "")}'
 
         response = self.robot.send_message(msg)
 
@@ -635,7 +649,7 @@ class Shaker(Effect):
 
         '''
 
-        msg =  'get ' + self.name + ' posmax'
+        msg =  f'get {self.name} posmax'
 
         return float(self.robot.send_message(msg))
 
@@ -652,7 +666,7 @@ class Shaker(Effect):
 
         '''
 
-        msg =  'set ' + self.name + ' posmax ' + str(value)
+        msg =  f'set {self.name} posmax {value}'
 
         response = self.robot.send_message(msg)
 
@@ -669,7 +683,7 @@ class Shaker(Effect):
 
         '''
 
-        msg =  'get ' + self.name + ' velmax'
+        msg =  f'get {self.name} velmax'
 
         return float(self.robot.send_message(msg))
 
@@ -686,7 +700,7 @@ class Shaker(Effect):
 
         '''
 
-        msg =  'set ' + self.name + ' velmax ' + str(value)
+        msg =  f'set {self.name} velmax {value}'
 
         response = self.robot.send_message(msg)
 
@@ -703,7 +717,7 @@ class Shaker(Effect):
 
         '''
 
-        msg =  'get ' + self.name + ' accmax'
+        msg =  f'get {self.name} accmax'
 
         return float(self.robot.send_message(msg))
 
@@ -720,7 +734,7 @@ class Shaker(Effect):
 
         '''
 
-        msg =  'set ' + self.name + ' accmax ' + str(value)
+        msg =  f'set {self.name} accmax {value}'
 
         response = self.robot.send_message(msg)
 
@@ -737,7 +751,7 @@ class Shaker(Effect):
 
         '''
 
-        msg =  'get ' + self.name + ' stiffness'
+        msg =  f'get {self.name} stiffness'
 
         return float(self.robot.send_message(msg))
 
@@ -754,7 +768,7 @@ class Shaker(Effect):
 
         '''
 
-        msg =  'set ' + self.name + ' stiffness ' + str(value)
+        msg =  f'set {self.name} stiffness {value}'
 
         response = self.robot.send_message(msg)
 
@@ -771,7 +785,7 @@ class Shaker(Effect):
 
         '''
 
-        msg =  'get ' + self.name + ' dampfactor'
+        msg =  f'get {self.name} dampfactor'
 
         return float(self.robot.send_message(msg))
 
@@ -788,7 +802,7 @@ class Shaker(Effect):
 
         '''
 
-        msg =  'set ' + self.name + ' dampfactor ' + str(value)
+        msg =  f'set {self.name} dampfactor {value}'
 
         response = self.robot.send_message(msg)
 
@@ -805,7 +819,7 @@ class Shaker(Effect):
 
         '''
 
-        msg =  'get ' + self.name + ' deadband'
+        msg =  f'get {self.name} deadband'
 
         return float(self.robot.send_message(msg))
 
@@ -822,7 +836,7 @@ class Shaker(Effect):
 
         '''
 
-        msg =  'set ' + self.name + ' deadband ' + str(value)
+        msg =  f'set {self.name} deadband {value}'
 
         response = self.robot.send_message(msg)
 
@@ -839,7 +853,7 @@ class Shaker(Effect):
 
         '''
 
-        msg =  'get ' + self.name + ' maxforce'
+        msg =  f'get {self.name} maxforce'
 
         return float(self.robot.send_message(msg))
 
@@ -856,7 +870,7 @@ class Shaker(Effect):
 
         '''
 
-        msg =  'set ' + self.name + ' maxforce ' + str(value)
+        msg =  f'set {self.name} maxforce {value}'
 
         response = self.robot.send_message(msg)
 

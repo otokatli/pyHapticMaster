@@ -43,6 +43,8 @@ import re
 import logging
 from string import printable
 from dataclasses import dataclass, field
+import numpy as np
+import numpy.typing as npt
 
 
 @dataclass(frozen=True)
@@ -110,7 +112,7 @@ class HapticMaster:
     port: int
     sock: socket = field(default_factory=lambda: socket.socket(socket.AF_INET, socket.SOCK_STREAM))
 
-    def connect(self):
+    def connect(self) -> None:
         '''Connect to the HapticMaster robot'''
 
         try:
@@ -120,7 +122,7 @@ class HapticMaster:
         except socket.error:
             logging.error('Connection error')
 
-    def disconnect(self):
+    def disconnect(self) -> None:
         '''Clear all haptic effects and objects and close connection'''
 
         # Clear all haptic effects
@@ -156,7 +158,7 @@ class HapticMaster:
 
         '''
 
-        msg = 'set inertia ' + str(value)
+        msg = f'set inertia {value}'
 
         response = self.send_message(msg)
 
@@ -177,7 +179,7 @@ class HapticMaster:
 
         return self.send_message(msg)
 
-    def set_state(self, device_state):
+    def set_state(self, device_state: str) -> bool:
         '''Set the state of the robot
 
         Parameters
@@ -191,7 +193,7 @@ class HapticMaster:
         '''
 
         if device_state in ['init', 'off', 'force', 'position', 'home']:
-            msg = 'set state ' + device_state
+            msg = f'set state {device_state}'
 
             response = self.send_message(msg)
 
@@ -226,7 +228,7 @@ class HapticMaster:
 
         '''
 
-        msg = 'set coulombfriction ' + str(value)
+        msg = f'set coulombfriction {value}'
 
         response = self.send_message(msg)
 
@@ -234,136 +236,136 @@ class HapticMaster:
 
         return 'Coulomb friction set' in response
 
-    def get_measpos(self) -> list:
+    def get_measpos(self) -> npt.NDArray:
         '''Get the measured position of the robot end-effector
 
         Returns
         -------
-        list: Position vector [m]
+        npt.NDArray: Position vector [m]
 
         '''
 
         msg = 'get measpos'
 
-        return self.string_to_list(self.send_message(msg))
+        return self.string_to_array(self.send_message(msg))
 
-    def get_measforce(self) -> list:
+    def get_measforce(self) -> npt.NDArray:
         '''Get the measured force of the robot end-effector
 
         Returns
         -------
-        list: Force vector [N]
+        npt.NDArray: Force vector [N]
 
         '''
 
         msg = 'get measforce'
 
-        return self.string_to_list(self.send_message(msg))
+        return self.string_to_array(self.send_message(msg))
 
-    def get_modelpos(self) -> list:
+    def get_modelpos(self) -> npt.NDArray:
         '''Get the model position of the robot end-effector
 
         Returns
         -------
-        list: Position vector [m]
+        npt.NDArray: Position vector [m]
 
         '''
 
         msg = 'get modelpos'
 
-        return self.string_to_list(self.send_message(msg))
+        return self.string_to_array(self.send_message(msg))
 
-    def get_modelvel(self) -> list:
+    def get_modelvel(self) -> npt.NDArray:
         '''Get the model velocity of the robot end-effector
 
         Returns
         -------
-        list: Velocity vector [m/s]
+        npt.NDArray: Velocity vector [m/s]
 
         '''
 
         msg = 'get modelvel'
 
-        return self.string_to_list(self.send_message(msg))
+        return self.string_to_array(self.send_message(msg))
 
-    def get_modelacc(self) -> list:
+    def get_modelacc(self) -> npt.NDArray:
 
         '''Get the model acceleration of the robot end-effector
 
         Returns
         -------
-        list: Acceleration vector [m/s^2]
+        npt.NDArray: Acceleration vector [m/s^2]
 
         '''
 
         msg = 'get modelacc'
 
-        return self.string_to_list(self.send_message(msg))
+        return self.string_to_array(self.send_message(msg))
 
-    def get_measposjoint(self) -> list:
+    def get_measposjoint(self) -> npt.NDArray:
         '''Get the measured position of the robot joints
 
         Returns
         -------
-        list: Position vector [m]
+        npt.NDArray: Position vector [m]
 
         '''
 
         msg = 'get measposjoint'
 
-        return self.string_to_list(self.send_message(msg))
+        return self.string_to_array(self.send_message(msg))
 
-    def get_measforcejoint(self) -> list:
+    def get_measforcejoint(self) -> npt.NDArray:
         '''Get the measured force of the robot joints
 
         Returns
         -------
-        list: Force vector [N]
+        npt.NDArray: Force vector [N]
 
         '''
 
         msg = 'get measforcejoint'
 
-        return self.string_to_list(self.send_message(msg))
+        return self.string_to_array(self.send_message(msg))
 
-    def get_modelposjoint(self) -> list:
+    def get_modelposjoint(self) -> npt.NDArray:
         '''Get the model position of the robot joints
 
         Returns
         -------
-        list: Position vector [m]
+        npt.NDArray: Position vector [m]
 
         '''
 
         msg = 'get modelposjoint'
 
-        return self.string_to_list(self.send_message(msg))
+        return self.string_to_array(self.send_message(msg))
 
-    def get_modelveljoint(self) -> list:
+    def get_modelveljoint(self) -> npt.NDArray:
         '''Get the model velocity of the robot joints
 
         Returns
         -------
-        list: Velocity vector [m/s]
+        npt.NDArray: Velocity vector [m/s]
 
         '''
 
         msg = 'get modelveljoint'
 
-        return self.string_to_list(self.send_message(msg))
+        return self.string_to_array(self.send_message(msg))
 
-    def get_modelaccjoint(self) -> list:
+    def get_modelaccjoint(self) -> npt.NDArray:
         '''Get the model acceleration of the robot joints
 
         Returns
         -------
-        list: Acceleration vector [m/s^2]
+        npt.NDArray: Acceleration vector [m/s^2]
 
         '''
 
         msg = 'get modelaccjoint'
 
-        return self.string_to_list(self.send_message(msg))
+        return self.string_to_array(self.send_message(msg))
 
     def get_force_calibrated(self) -> bool:
         '''Check if the robot force sensor is calibrated
@@ -391,47 +393,47 @@ class HapticMaster:
 
         return self.string_to_bool(self.send_message(msg))
 
-    def get_workspace_r(self) -> list:
+    def get_workspace_r(self) -> npt.NDArray:
         '''Get the workspace dimensions of the robot in radial direction
         R low stop, Distance to center to real axis, R high stop
 
         Returns
         -------
-        list: Workspace limits [m]
+        npt.NDArray: Workspace limits [m]
 
         '''
 
         msg = 'get workspace_r'
 
-        return self.string_to_list(self.send_message(msg))
+        return self.string_to_array(self.send_message(msg))
 
-    def get_workspace_phi(self) -> list:
+    def get_workspace_phi(self) -> npt.NDArray:
         '''Get the workspace dimensions of the robot in angular direction
         Phi low stop, Phi high stop
 
         Returns
         -------
-        list: Workspace limits [rad]
+        npt.NDArray: Workspace limits [rad]
 
         '''
 
         msg = 'get workspace_phi'
 
-        return self.string_to_list(self.send_message(msg))
+        return self.string_to_array(self.send_message(msg))
 
-    def get_workspace_z(self) -> list:
+    def get_workspace_z(self) -> npt.NDArray:
         '''Get the workspace dimensions of the robot in z-direction
         Z low stop, Z high stop
 
         Returns
         -------
-        list: Workspace limits [m]
+        npt.NDArray: Workspace limits [m]
 
         '''
 
         msg = 'get workspace_z'
 
-        return self.string_to_list(self.send_message(msg))
+        return self.string_to_array(self.send_message(msg))
 
     def calibrateforcesensor(self) -> bool:
         '''Calibrate the force sensor of the robot
@@ -450,7 +452,7 @@ class HapticMaster:
 
         return 'Force sensor calibrated' in response
 
-    def _haptic_master_message(self, msg):
+    def _haptic_master_message(self, msg: str) -> list:
         '''Create the serialised message accepted by the HapticMaster
 
         Parameters
@@ -472,7 +474,7 @@ class HapticMaster:
 
         return hm_msg + decimal_msg
 
-    def _haptic_master_response(self, msg):
+    def _haptic_master_response(self, msg: list) -> str:
         '''Decode the reponse from the haptic master
 
         Parameters
@@ -512,22 +514,22 @@ class HapticMaster:
         except Exception as socket_exception:
             raise socket_exception
 
-    def string_to_list(self, list_s: str):
-        '''Convert a list in a string to a float string
+    def string_to_array(self, string_list: str) -> npt.NDArray:
+        '''Convert a list in a string to a numpy array
 
         Parameters
         ----------
-        list_s (str): String containing the list
+        string_list (str): String containing the list
 
         Returns
         -------
-        list: Float list from the string
+        npt.ndarray: Numpy array from the list
 
         '''
 
-        return [float(si) for si in list_s[list_s.find('[')+1:list_s.find(']')].split(',')]
+        return np.array([float(si) for si in string_list[string_list.find('[')+1:string_list.find(']')].split(',')])
 
-    def string_to_bool(self, bool_s: str):
+    def string_to_bool(self, bool_s: str) -> bool:
         '''Convert a boolean in a string to a boolean
 
         Parameters
